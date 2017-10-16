@@ -14,7 +14,7 @@ chrome.storage.local.get(["settings", "fields"], function(items) {
             const element = document.getElementById(key);
             const value = fields[key];
             if (element === null) console.log("Error: Cannot find element for field " + key);
-            else if (value === "");
+            else if (value === ""){}
             else {
                 /*if(element.tagName === "SELECT"){
                     element.options[] .click()
@@ -22,6 +22,7 @@ chrome.storage.local.get(["settings", "fields"], function(items) {
 
                  }*/
                 element.value = value;
+                //TODO wenn nicht geklappt hab dann checkout blockieren
             }
         }
 

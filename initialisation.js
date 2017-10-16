@@ -6,7 +6,7 @@
 chrome.storage.local.get(null, function (items) {
 
     if (Object.keys(items).length === 0) {
-        var fields = {
+        let fields = {
             order_billing_name: "",
             order_email: "",
             order_tel: "",
@@ -22,13 +22,13 @@ chrome.storage.local.get(null, function (items) {
             credit_card_year: "2027",
             vval: ""
         };
-        var settings = {
+        let settings = {
             //stopautocheckout: "so_nf",
             delay: 2250,
             nowelcomepage: 1,
             showsoldout: 1,
-            gotocheckout: 0,
-            autofill: 0,
+            gotocheckout: 1,
+            autofill: 1,
             autocheckout: 0,
             manualmode: 0
         };
@@ -39,5 +39,10 @@ chrome.storage.local.get(null, function (items) {
             "settings": settings,
         });
         console.log("Initialised");
+    }
+
+    else {
+        items.settings.autocheckout = 0;
+        chrome.storage.local.set({settings: items.settings});
     }
 });

@@ -12,8 +12,8 @@
 <header>
     <img src="../pictures/logo.png" alt="Supreme Logo">
     <div>
-        <p><span class="bold">Shop Automation</span></p>
-        <p>Version 1.1.2</p>
+        <p><span class="bold">Advanced Onlineshop Automation</span></p>
+        <p>Version 1.1.4</p>
         <p>Autofill Data and Settings</p>
     </div>
 </header>
@@ -24,19 +24,19 @@
 
             <h3>Billing/Shipping information</h3>
 
-            <label>Full Name: <input type="text" id="order_billing_name"></label>
-            <label>E-Mail: <input type="text" id="order_email"></label>
-            <label>Tel: <input type="text" id="order_tel"></label>
-            <label>Adress Line 1: <input type="text" id="bo"></label>
-            <label>Adress Line 2: <input type="text" id="oba3"></label>
-            <label>Adress Line 3: <input type="text" id="order_billing_address_3"></label>
-            <label>City: <input type="text" id="order_billing_city"></label>
-            <label>Postcode: <input type="text" id="order_billing_zip"></label>
+            <label>Full Name: <input type="text" pattern="[a-zA-Z ]+" required id="order_billing_name"></label>
+            <label>E-Mail: <input type="email" required id="order_email"></label>
+            <label>Tel: <input type="tel" required id="order_tel"></label>
+            <label>Adress Line 1: <input type="text" pattern="[a-zA-Z0-9 ]+" required id="bo"></label>
+            <label>Adress Line 2: <input type="text" pattern="[a-zA-Z0-9 ]+" id="oba3"></label>
+            <label>Adress Line 3: <input type="text" pattern="[a-zA-Z0-9 ]+" id="order_billing_address_3"></label>
+            <label>City: <input type="text" required pattern="[a-zA-Z ]+" id="order_billing_city"></label>
+            <label>Postcode: <input type="text" pattern="[0-9]+" required id="order_billing_zip"></label>
             <label>Country:
-                <select id="order_billing_country">
+                <select id="order_billing_country" required>
+                    <option value="">-</option>
                     <option value="GB">UK</option>
                     <option value="NB">UK (N. IRELAND)</option>
-                    <option value="">-</option>
                     <option value="AT">AUSTRIA</option>
                     <option value="BY">BELARUS</option>
                     <option value="BE">BELGIUM</option>
@@ -138,15 +138,15 @@
 
             <label>Auto switch from www.supremenewyork.com/shop to [..]/all
                 <select id="nowelcomepage">
-                    <option value="1">yes</option>
-                    <option value="0">no</option>
+                    <option value=1 >yes</option>
+                    <option value=0 >no</option>
                 </select>
             </label>
 
             <label>Show sold out tag without hover
                 <select id="showsoldout">
-                    <option value="1">yes</option>
-                    <option value="0">no</option>
+                    <option value=1 >yes</option>
+                    <option value=0 >no</option>
                 </select>
             </label>
         </fieldset>
@@ -156,7 +156,7 @@
         <div id="buttonpane">
             <input type="button" id="cancel" value="Cancel">
             <input type="button" id="save" value="Save">
-            <div id="status"></div>
+            <div id="message"></div>
         </div>
     </div>
 </form>

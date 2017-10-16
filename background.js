@@ -7,10 +7,9 @@
 
 "use strict";
 
-var cartTab;
-
 /**
- * manages the logic steps by send and response
+ * Message handling
+ * Manages the logic steps by send and response
  */
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
@@ -19,8 +18,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
          // STEP 1.0:
         // CREATE TAB FOR EVERY ITEM AND SEARCH IT IN HIS CATEGORIE
         if (message.bot === "start") {
-            //TODO check if store is open (if not the cart tab cannot be resolved and will land on /shop
-            chrome.tabs.create({url: "https://www.supremenewyork.com/shop/cart", active: true}, function (tab) {cartTab = tab;});
+            //TODO check if store is open (if not the tabs cannot be resolved and will land on /shop
             chrome.storage.local.get("supremeitems", function (items) {
                 const supremeitems = items.supremeitems;
                 let i = 0;
@@ -28,30 +26,28 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 function f() {
                     if (i < supremeitems.length) {
                         const item = supremeitems[i];
-                        chrome.tabs.create({
-                            url: "https://www.supremenewyork.com/shop/all/" + item.categorie,
-                            active: false
-                        }, function (tab) {
+                        chrome.tabs.create({url: "https://www.supremenewyork.com/shop/all/" + item.categorie, active: false}, function (tab) {
                             chrome.tabs.executeScript(tab.id, {code: 'var item = ' + JSON.stringify(item)}, function () {
                                 chrome.tabs.executeScript(tab.id, {file: "working_scripts/selectItem.js"}, function (tab) {
-                                    console.log("working script 1 injected");
-
-                                    if (!tab) console.log("Error: stopped bot caused by closing last tab");
+                                    console.log("working script selectItem.js injected");
+                                    if (!tab) {
+                                        console.log("Error: stopped bot caused by closing last tab");
+                                    }
                                     else {
                                         i++;
-                                        f();
+                                        //TODO adjust timeout time
+                                        setTimeout(f, 330);
                                     }
                                 });
                             })
                         })
                     }
                 }
-
                 f();
             })
         }
         else if (message.bot === "stop"){
-
+            console.log("Not supported yet");
         }
     }
 
@@ -60,28 +56,29 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         const item = message.itemStatus.item;
         const url = message.itemStatus.url;
 
-
          // STEP 1.1:
         //  RELOAD TAB AND INJECT SCRIPT AGAIN
-        //TODO wenn erste item gefunden andere tabs noch 1x suchen lassen und dann stoppen
         if (status === "notFound") {
-            updateTab(sender.tab, sender.url, "working_scripts/selectItem.js", item);
+            // TODO wenn erste item gefunden andere tabs noch 1x suchen lassen und dann stoppen
+            // TODO variable im scope mit startbot wo die initialisiert wird (klappt iwie net)
+            // TODO wenn dann immer noch ein tab das item nicht findet als "notFound" markieren und später handlen
+            updateTab(sender.tab, {url: sender.url}, "working_scripts/selectItem.js", item);
         }
 
          // STEP 2:
         //  SELECT SIZE AND ADD IT TO BASKET
         else if (status === "itemFound") {
-            updateTab(sender.tab, url, "working_scripts/selectSize.js", item);
+            const delay = 330;
+            let start = new Date();
+            while (new Date() - start <= delay) {} /** delayed "add to basket" http request to avoid to be blocked by website */
+            updateTab(sender.tab, {url: url}, "working_scripts/selectSize.js", item);
         }
         else if (status === "soldOut") {
-            //TODO
             chrome.tabs.update(sender.tab.id, {url: url})
         }
         else if (status === "alreadyInCart") {
-            //TODO
-            chrome.tabs.update(sender.tab.id, {url: url});
+            // TODO remove from itemlist?
         }
-
 
 
          // STEP 3:
@@ -94,11 +91,11 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                         const settings = items.settings;
                         if (settings.gotocheckout === 1) {
                             if (settings.manualmode === 1) {
-                                // if maualmode is enabled gotocheckout will be executed on url match
-                                chrome.tabs.update(cartTab.id, {url: "https://www.supremenewyork.com/checkout"});
+                                // if maualmode is enabled script will be injected on url match
+                                chrome.tabs.update(sender.tab.id, {active: true, url: "https://www.supremenewyork.com/checkout"});
                             }
                             else {
-                                updateTab(cartTab, "https://www.supremenewyork.com/checkout", "/working_scripts/autofill_checkout.js");
+                                updateTab(sender.tab, {active: true, url: "https://www.supremenewyork.com/checkout"}, "/working_scripts/autofill_checkout.js");
                             }
                         }
                     })
@@ -106,33 +103,36 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             })
         }
     }
+
+    // set icon badge
+    else if (message.badge !== undefined){
+        chrome.browserAction.setBadgeText({text: message.badge});
+        chrome.browserAction.setBadgeBackgroundColor({color:[255, 55, 55, 255]});
+    }
 });
 
 
 /**
  * Fires on every tab update. good for matching urls even on ajax changes
- *
  */
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status === "complete") {
         if (tab.url.match(/^(http|https):\/\/www.supremenewyork.com\/shop$/)) {
             getSetting("nowelcomepage", function (nowelcomepage) {
-                // nowelcome is a string
-                if (nowelcomepage == 1)
+                if (nowelcomepage === 1)
                     chrome.tabs.update(tabId, {url: "https://www.supremenewyork.com/shop/all"})
             })
         }
         else if (tab.url.match(/^(http|https):\/\/www.supremenewyork.com\/shop\/*/)) {
             getSetting("showsoldout", function (showsoldout) {
-                // showsoldout is a string
-                if (showsoldout == 1)
+                if (showsoldout === 1)
                     chrome.tabs.insertCSS(tabId, {file: "working_css/showsoldouttag.css", allFrames: true}, function () {
                     });
             })
         }
         else if (tab.url.match(/^(http|https):\/\/www.supremenewyork.com\/checkout$/)) {
             getSetting("manualmode", function (manualmode) {
-                if (manualmode == 1) {
+                if (manualmode === 1) {
                     chrome.tabs.executeScript(tabId, {file: "working_scripts/autofill_checkout.js"});
                 }
             })
@@ -145,13 +145,13 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 // http://stackoverflow.com/questions/20046803/remove-listener-when-given-url-is-visited-after-using-chrome-tabs-onupdated-addl
 /**
  * @param {chrome.tabs.Tab} tab - tab which has to be updated
- * @param {String} url - new url
+ * @param {Object} updateProperties - e.g. {url: .., active: true}
  * @param {String} script - String to script location
  * @param {Object} [object] - will inject in the updated tab and appear as "var item = object"
  */
-function updateTab(tab, url, script, object) {
+function updateTab(tab, updateProperties, script, object) {
 
-    chrome.tabs.update(tab.id, {url: url}, function (updated_tab) {
+    chrome.tabs.update(tab.id, updateProperties, function (updated_tab) {
         chrome.tabs.onUpdated.addListener(listener);
         function listener(tabId, changeInfo, tab) {
             if (updated_tab.id === tabId && changeInfo.status === 'complete') {
@@ -173,13 +173,15 @@ function updateTab(tab, url, script, object) {
  - verknüpfung von ausgangs array item ids mit tab ids
  - je nach setting (sold out, didnt found,..) dann "stop" bot
 
+string/int speicherung angleichen
+falls url matcher nicht mehr klappt: habe auf typ abgleich (int) verändert da string/int vermiscung gedacht behoben zu haben durch value tag im option.html
 
- TODO TEST:  was wenn carttab wurde geschlossen
+TODO badge wenn autofill leer
 
- TODO TEST: beim drop mehrere Items hinzugefügt werden (oder bei jedem dann gleichzeitig auf hinzufügen gedrückt wird und es sich wieder blockiert)
- mögliche Lösung: "ready to add" häufen und dann nacheinander mit delay ausführen (ausführ stack)
+TODO testen wie schnell tab refresh rate damit item noch hinzugefügt wird / evtl mehrer
 
  */
+
 
 
 

@@ -94,14 +94,14 @@ fieldset label{
     margin: 1% 0;
 }
 
-input[type="text"], select{
+input[type="text"], input[type="email"], input[type="number"], input[type="tel"], select{
     border: 1px solid lightgrey;
     display: block;
     width: 100%;
     height: 20px;
 }
 
-input[type="text"]:invalid {
+input:invalid, select:invalid{
     border: 1px solid var(--akzent);
     box-shadow: 0 0 1px var(--akzent);
 }
@@ -142,8 +142,7 @@ input[type="text"]:invalid {
     float: right;
 }
 
-#status{
-    margin: 1% 0;
+#message{
     height: 1em;
 }
 

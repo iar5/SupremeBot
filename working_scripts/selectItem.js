@@ -1,9 +1,11 @@
-/* SEARCH ITEM IN CATEGORIE SECTIONS AND RETURNS ITEM LINK */
+/**
+ * @description SEARCH ITEM IN CATEGORIES SECTIONS AND RETURNS ITEM LINK
+ * */
 
-//var item = supremeitem; delivered from background.js
+// var item = supremeitem; delivered from background.js
+
 const articles = document.getElementsByClassName("inner-article");
 let found = false;
-let stop = false;
 
 for (let i = 0; i < articles.length && found === false; i++) {
     const article = articles[i];
@@ -18,11 +20,13 @@ for (let i = 0; i < articles.length && found === false; i++) {
         } else {
             chrome.runtime.sendMessage({itemStatus: {item: item, status: "soldOut"}});
         }
+        break;
     }
 }
 
 if(found === false) {setTimeout(function(){
-    if(stop === false) chrome.runtime.sendMessage({itemStatus: {item: item, status: "notFound"}})}, 1000);
+    // TODO adjust timeout time
+    // TODO relativ geringes timeout aber immer vorm hinzufügen zum korb eine pause machen damit nicht blockiert
+    chrome.runtime.sendMessage({itemStatus: {item: item, status: "notFound"}})}, 1000);
 }
-
 

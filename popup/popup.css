@@ -51,7 +51,7 @@ input[type=checkbox]{
     cursor: help;
 }
 
-.infoicon.danger{
+.infoicon.uwaga{
     color: var(--akzent);
     border-color: var(--akzent);
     font-weight: bolder;

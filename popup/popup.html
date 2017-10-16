@@ -17,13 +17,15 @@
                 <div id="clickbar">
                     <label>
                         <input id="manualmode-box" class="checkbutton-box" type="checkbox">
-                        <label id="manualmode" class="checkbutton" for="manualmode-box" title="Autofill and Checkout will even execute on manual click at supreme checkout if activate. Good to take a look for unannounced items or if you added an invalid one">ManualMode</label>
+                        <label id="manualmode" class="checkbutton" for="manualmode-box" title="Autofill and Checkout will also work if items are manually added to the cart. This way you can also add unannounced items or if you added invalid items to the bot.">ManualMode</label>
                     </label>
 
                     <img id="options" class="checkbutton" src="../pictures/settings.png" title="Autofill data and advanced settings">
                 </div>
             </div>
         </header>
+
+        <p>Enter your wanted items here.</p>
         <table>
             <thead>
             <tr>
@@ -47,13 +49,23 @@
                 </th>
                 <th>
                     <select name="size" id="size">
-                        <option value="">-</option>
 
+                        <optgroup label="Accessories">
+                            <option value="">-</option>
+                        </optgroup>
+                        <optgroup label="For Hypebeast or resell">
+                            <option value="anysize_r">Any size (random)</option>
+                            <option value="anysize_l">Any size from smallest to tallest </option>
+                            <option value="anysize_s">Any size from tallest to smallest </option>
+                        </optgroup>
                         <optgroup label="Jackets/Coats/Shirts">
                             <option value="Small">Small</option>
                             <option value="Medium">Medium</option>
                             <option value="Large">Large</option>
                             <option value="XLarge">XLarge</option>
+                        </optgroup>
+                        <optgroup label="e.g. Stone Island">
+                            <option value="XXLarge">XXLarge</option>
                         </optgroup>
                         <optgroup label="Pants">
                             <option value="30">30</option>
@@ -127,7 +139,7 @@
                         <div class="slider"></div>
                     </label>
                     <label for="autocheckout-box">Process checkout
-                        <div id="autocheckout-info" class="infoicon" title="Will turned off after every usage. Take care in combination with ManualMode!">i</div>
+                        <div id="autocheckout-info" class="infoicon" title="Will turned off after every usage and at Chrome shutdown. Take care in combination with ManualMode!">i</div>
                     </label>
                 </label>
 

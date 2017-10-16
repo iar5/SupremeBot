@@ -14,13 +14,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const boxmanualmode = document.getElementById("manualmode-box")
     const autocheckoutinfo = document.getElementById("autocheckout-info");
 
-    if(false) {
+    if(true) {
         const data = [
             {"name": "tagless tee", "color": "white", "categorie": "accessories", "size": "Large", "id": 101},
             {"name": "crew socks", "color": "black", "categorie": "accessories", "size": "", "id": 102},
-            {"name": "glasses", "color": "clear", "categorie": "accessories", "size": "", "id": 103},
+            {"name": "classic wheels", "color": "gold", "categorie": "skate", "size": "anysize_r", "id": 103},
             {"name": "truck", "color": "silver", "categorie": "skate", "size": "129", "id": 104},
-            {"name": "keychain", "color": "clear", "categorie": "accessories", "size": "", "id": 105}
+            {"name": "corduroy", "color": "peach", "categorie": "pants", "size": "32", "id": 105}
         ];
 
         document.getElementsByTagName("img")[0].onclick = function () {
@@ -48,10 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (boxautocheckout.checked && boxmanualmode.checked){
-            autocheckoutinfo.classList.add("danger");
+            autocheckoutinfo.classList.add("uwaga");
+            chrome.runtime.sendMessage({badge: "!"})
         }
         else{
-            autocheckoutinfo.classList.remove("danger");
+            autocheckoutinfo.classList.remove("uwaga");
+            chrome.runtime.sendMessage({badge: ""})
         }
     }
 
@@ -132,8 +134,26 @@ document.addEventListener("DOMContentLoaded", function () {
     function clock(){
         const date = new Date();
         document.getElementById("time").innerHTML = date.toTimeString();
-    };
+    }
 
+    function loadBoxValues() {
+        getPopupSettings(function (settings) {
+            for (let key in settings) {
+                const box = document.getElementById(key+"-box");
+                box.checked = settings[key];
+                box.onchange = updateBoxValue(box, key)
+            }
+            updateBoxValueAndCss();
+        });
+    }
+
+    function updateBoxValue(box, key){
+        return function () {
+            setSetting(key, +box.checked, function(){
+                updateBoxValueAndCss();
+            });
+        };
+    }
 
 
     /* << INITIALISATION >> */
@@ -141,21 +161,5 @@ document.addEventListener("DOMContentLoaded", function () {
     refreshItemTable();
     clock();
     setInterval(clock, 250);
-
-    getPopupSettings(function (settings) {
-        for (let key in settings) {
-            const box = document.getElementById(key+"-box");
-            box.checked = settings[key];
-            box.onchange = checkBoxValue(box, key)
-        }
-        updateBoxValueAndCss();
-    });
-
-    function checkBoxValue(box, key){
-        return function () {
-            setSetting(key, +box.checked, function(){
-                updateBoxValueAndCss();
-            });
-        };
-    }
+    loadBoxValues();
 });

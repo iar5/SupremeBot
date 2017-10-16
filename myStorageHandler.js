@@ -17,7 +17,6 @@ const POPUP_S = ["gotocheckout", "autofill", "autocheckout", "manualmode"];
 /* ACCESS FUNCTIONS */
 /* GETTER */
 
-
 function getSetting(setting, callback) {
     chrome.storage.local.get("settings", function (items) {
         if(Array.isArray(setting)){
@@ -50,6 +49,7 @@ function getFields(callback){
 
 
 
+
 /* SETTER */
 
 function setSetting(name, value, callback) {
@@ -74,6 +74,7 @@ function removeSupremeItem(id, callback) {
         })
     })
 }
+
 
 
 
@@ -115,6 +116,7 @@ function removeArrayItem(item_id, array) {
 function getArrayItemIndex(item_id, array) {
     for (let i = 0; i < array.length; i++) {
         const item = array[i];
+        // TODO parseInt beim Auslesen aus Formular
         // do not change equivalencies. item_id may be string
         if (item.id == item_id) {
             return i;
