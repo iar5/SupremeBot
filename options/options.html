@@ -1,121 +1,160 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Supreme Bot - Options</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="options.css">
+<head>
+    <title>Supreme Bot - Options</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="options.css">
+    <script src="options.js"></script>
+</head>
+<body>
+<header>
+    <img src="../pictures/motion.png" alt="Supreme Logo">
+    <div>
+        <p><span class="bold"> Motion Bot</span> <i>by</i> Tom Wendland</p>
+        <p>Version 1.0.3</p>
+        <p>Autofill Data and Settings</p>
+    </div>
+</header>
 
-    </head>
-    <body>
-        <header>
-            <h1>Supreme Bot</h1>
-            <p>auto fill data.</p>
-        </header>
+<form>
+    <fieldset>
+        <h3>Billing/Shipping information</h3>
 
-        <form>
-            <fieldset>
-                <h3>Billing/Shipping information</h3>
+        <label>Full Name: <input type="text" id="order_billing_name"></label>
+        <label>E-Mail: <input type="text" id="order_email"></label>
+        <label>Tel: <input type="text" id="order_tel"></label>
+        <label>Adress Line 1: <input type="text" id="bo"></label>
+        <label>Adress Line 2: <input type="text" id="oba3"></label>
+        <label>Adress Line 3: <input type="text" id="order_billing_address_3"></label>
+        <label>City: <input type="text" id="order_billing_city"></label>
+        <label>Postcode: <input type="text" id="order_billing_zip"></label>
+        <label>Country:
+            <select id="order_billing_country">
+                <option value="GB">UK</option>
+                <option value="NB">UK (N. IRELAND)</option>
+                <option value="">-</option>
+                <option value="AT">AUSTRIA</option>
+                <option value="BY">BELARUS</option>
+                <option value="BE">BELGIUM</option>
+                <option value="BG">BULGARIA</option>
+                <option value="HR">CROATIA</option>
+                <option value="CZ">CZECH REPUBLIC</option>
+                <option value="DK">DENMARK</option>
+                <option value="EE">ESTONIA</option>
+                <option value="FI">FINLAND</option>
+                <option value="FR">FRANCE</option>
+                <option value="DE">GERMANY</option>
+                <option value="GR">GREECE</option>
+                <option value="HU">HUNGARY</option>
+                <option value="IS">ICELAND</option>
+                <option value="IE">IRELAND</option>
+                <option value="IT">ITALY</option>
+                <option value="LV">LATVIA</option>
+                <option value="LT">LITHUANIA</option>
+                <option value="LU">LUXEMBOURG</option>
+                <option value="MC">MONACO</option>
+                <option value="NL">NETHERLANDS</option>
+                <option value="NO">NORWAY</option>
+                <option value="PL">POLAND</option>
+                <option value="PT">PORTUGAL</option>
+                <option value="RO">ROMANIA</option>
+                <option value="RU">RUSSIA</option>
+                <option value="SK">SLOVAKIA</option>
+                <option value="SI">SLOVENIA</option>
+                <option value="ES">SPAIN</option>
+                <option value="SE">SWEDEN</option>
+                <option value="CH">SWITZERLAND</option>
+                <option value="TR">TURKEY</option>
+            </select></label>
+    </fieldset>
 
-                <label>Full name: <input type="text" id="order_billing_name"></label>
-                <label>E-Mail: <input type="text" id="order_email"></label>
-                <label>Tel: <input type="text" id="order_tel"></label>
-                <label>Adress Line 1: <input type="text" id="bo"></label>
-                <label>Adress Line 2: <input type="text" id="oba3"></label>
-                <label>Adress Line 3: <input type="text" id="order_billing_address_3"></label>
-                <label>City: <input type="text" id="order_billing_city"></label>
-                <label>Postcode: <input type="text" id="order_billing_zip"></label>
-                <label>Country:
-                    <select id="order_billing_country">
-                        <option value="GB">UK</option>
-                        <option value="NB">UK (N. IRELAND)</option>
-                        <option value="">-</option>
-                        <option value="AT">AUSTRIA</option>
-                        <option value="BY">BELARUS</option>
-                        <option value="BE">BELGIUM</option>
-                        <option value="BG">BULGARIA</option>
-                        <option value="HR">CROATIA</option>
-                        <option value="CZ">CZECH REPUBLIC</option>
-                        <option value="DK">DENMARK</option>
-                        <option value="EE">ESTONIA</option>
-                        <option value="FI">FINLAND</option>
-                        <option value="FR">FRANCE</option>
-                        <option value="DE">GERMANY</option>
-                        <option value="GR">GREECE</option>
-                        <option value="HU">HUNGARY</option>
-                        <option value="IS">ICELAND</option>
-                        <option value="IE">IRELAND</option>
-                        <option value="IT">ITALY</option>
-                        <option value="LV">LATVIA</option>
-                        <option value="LT">LITHUANIA</option>
-                        <option value="LU">LUXEMBOURG</option>
-                        <option value="MC">MONACO</option>
-                        <option value="NL">NETHERLANDS</option>
-                        <option value="NO">NORWAY</option>
-                        <option value="PL">POLAND</option>
-                        <option value="PT">PORTUGAL</option>
-                        <option value="RO">ROMANIA</option>
-                        <option value="RU">RUSSIA</option>
-                        <option value="SK">SLOVAKIA</option>
-                        <option value="SI">SLOVENIA</option>
-                        <option value="ES">SPAIN</option>
-                        <option value="SE">SWEDEN</option>
-                        <option value="CH">SWITZERLAND</option>
-                        <option value="TR">TURKEY</option>
-                    </select></label>
-            </fieldset>
+    <fieldset>
+        <h3>Credit Card Information</h3>
 
-            <fieldset>
-                <h3>Credit Card Information</h3>
+        <label>Type: <select id="credit_card_type">
+            <option selected="selected" value="visa">Visa</option>
+            <option value="american_express">American Express</option>
+            <option value="master">Mastercard</option>
+            <option value="solo">Solo</option>
+            <option value="paypal">PayPal</option>
+        </select></label>
 
-                <label>Type: <select id="credit_card_type">
-                        <option selected="selected" value="visa">Visa</option>
-                        <option value="american_express">American Express</option>
-                        <option value="master">Mastercard</option>
-                        <option value="solo">Solo</option>
-                        <option value="paypal">PayPal</option>
-                    </select></label>
-                <div id="nopaypaldisplay">
-                    <label>Number: <input type="text" id="cnb"></label>
-                    <label>Exp. date:
-                        <select id="credit_card_month">
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                        </select>
-                        <select id="credit_card_year">
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
-                            <option value="2023">2023</option>
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                            <option value="2026">2026</option>
-                            <option value="2027">2027</option>
-                        </select>
-                    </label>
-                    <label>CVV: <input id="vval" maxlength="4" size="4" type="text"></label>
-                </div>
+        <label class="nopp">Number: <input type="text" id="cnb"></label>
+        <label class="nopp">Exp. date:
+            <div id="expdate">
+                <select id="credit_card_month">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <select id="credit_card_year">
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                </select>
+            </div>
+        </label>
 
-            </fieldset>
-        </form>
+        <label class="nopp">CVV: <input id="vval" maxlength="4" size="4" type="text"></label>
 
-        <div id="buttonpane">
-            <button type="button" id="cancel">Cancel</button>
-            <button type="button" id="save">Save</button>
-            <div id="status"></div>
-        </div>
-        <script src="options.js"></script>
-    </body>
+    </fieldset>
+</form>
+
+
+<form>
+    <fieldset>
+        <h3>Bot Settings</h3>
+
+        <label class="info">Checkout Delay (ms): <input type="text" id="delay"></label>
+
+        <!-- <label>Stop auto chekout if at least one item is ..
+            <select id="stopautocheckout">
+                <option value="so_nf">sold out or table-item not found</option>
+                <option value="so">sold out</option>
+                <option value="nf">table-item not found</option>
+                <option value="never">never stop</option>
+            </select>
+        </label> -->
+
+        <label>Auto switch from www.supremenewyork.com/shop to [..]/all
+            <select id="nowelcomepage">
+                <option value="1">yes</option>
+                <option value="0">no</option>
+            </select>
+        </label>
+
+        <label>Show sold out tag without hover
+            <select id="showsoldout">
+                <option value="1">yes</option>
+                <option value="0">no</option>
+            </select>
+        </label>
+    </fieldset>
+
+</form>
+
+<div id="buttonpane">
+    <button id="cancel">Cancel</button>
+    <button id="save">Save</button>
+    <div id="status"></div>
+</div>
+</body>
 </html>

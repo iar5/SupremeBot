@@ -1,135 +1,217 @@
+:root{
+    --akzent: rgb(255,55,55);
+}
+
 *{
     font-family: "Lucida Grande", "Tahoma", sans-serif;
-    font-size: 1em;
     padding:0;
     margin:0;
     box-sizing: border-box;
-    outline:none;
+    outline: none;
+    font-weight: normal;
 }
 
-html{
-    width: 420px;
-    padding: 1% 0;
+p, label, input[type=button]{
+    font-size: 1em;
 }
+
+label{
+    vertical-align: middle;
+}
+
+
+
+/* BASIC WINDOW SIZING */
+
 
 body{
-    margin: auto;
-    width: 400px;
+    width: 390px;
+    margin: 10px;
 }
 
 body>*{
-    margin: 2% 0;
-}
-
-body>*:first-child{
-    margin-top: 0%;
+    margin-bottom: 3%;
 }
 
 body>*:last-child{
-    margin-bottom: 0%;
+    margin-bottom: 0;
 }
 
-#options, input[type=button], .slider{
+input[type=button], .slider, .button{
     cursor: pointer;
 }
+
 
 
 
 /* HEADER */
 
 header{
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 3%;
 }
 
-header > h1{
-    font-family: Futura LT;
-    color:red;
-    font-style: italic;
-    font-weight: bolder;
-    font-size: 2.2em;
+header > img{
+    height: 3em;
     display: inline-block;
+    margin: .5% 0;
 }
 
-header > #options{
+#infobar{
+    display: inline-block;
+    float: right;
+}
+
+#infobar > *{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.button {
     border: 1px solid grey;
     color: grey;
-    padding: 4px;
+    padding: 3px;
     background-color: white;
-    border-radius: 10px;
-    position: absolute;
-    top: 4px;
-    right: 0;
+    display: inline-block;
+    height: 24px;
+    opacity: .2;
 }
+
+.button:hover{
+    /* bypassed bug: opactiy has sideeffect on border */
+    opacity: 1;
+
+}
+
+#boxmanuelmode{
+    display: none;
+}
+
+#boxmanuelmode:checked + .button{
+    background-color: var(--akzent);
+    color: white;
+    border: 1px solid transparent;
+    opacity: 1;
+}
+
+
+
+
+
+.info{
+    cursor: help;
+}
+
+#tableinfo{
+    text-align: center;
+    background-color: white;
+    border: 1px solid rgb(200,200,200);
+    color: grey;
+    font-size: .9em;
+    width: 1.4em;
+    margin: auto;
+    border-radius: 10px;
+}
+
 
 
 
 /* TABLE */
-
 table{
     width: 100%;
     text-align: left;
     border-collapse: collapse;
-    border: 1px solid rgb(210, 255, 255);
     border-bottom: 0;
 }
 
-
+/* right/left table border
+table > *{
+    border-left: 2px solid rgb(230, 230, 230);
+    border-right: 2px solid rgb(230, 230, 230);
+}
+*/
 
 /* Table coloring and border */
 thead{
-    background-color: rgb(210, 255, 255);
+    background-color: rgb(230, 230, 230);
 }
 
-tr{
-    border-top: 1px solid white;
+thead th{
+    font-weight: bold;
+    padding: .5% 0
 }
 
 tbody{
+    background-color: rgb(247, 247, 247);
     border-top: 2px solid white;
     border-bottom: 2px solid white;
-    background-color: rgb(235, 255, 255);
+}
+
+tbody > tr{
+    border-top: 1px solid white;
+}
+
+tbody > tr > td:not(:nth-of-type(5)){
+    border-right: 1px solid white;
+}
+
+tbody > tr > td:nth-of-type(4), tfoot > tr > td{
+    border-right: 1px solid transparent;
 }
 
 tfoot{
-    background-color: white;
+    border-top: 2px solid white;
 }
 
-
+/* row hover */
+tbody tr:hover{
+    background-color: rgb(240, 240, 240);
+}
 
 /* Table bigger head */
 thead>tr{
     height: 20px;
 }
 
-
-/* Table adding */
-thead th, tbody td{
-    padding: 0 1%;
+/* Table padding */
+th:not(:last-of-type), tbody td:not(:last-of-type){
+    padding: .5% 1%;
 }
 
-thead th:last-of-type, tbody td:last-of-type, tfoot td{
-    padding: 0 1px;
+/* column sizing */
+thead th:nth-of-type(2){
+     width: 18%;
+ }
+
+thead th:nth-of-type(4){
+    width: 20%;
 }
+
+
+
+
+
 
 /* Table buttons */
-
 .rmbutton{
     height: 18px;
-    width: 35px;
+    width: 34px;
     background-color: white;
-    color: red;
-    border: 1px solid red;
+    color: var(--akzent);
+    border: 1px solid var(--akzent);
 }
 
 .rmbutton:hover{
-    background-color: #ff0000;
+    background-color: var(--akzent);
     color: white;
 }
 
 #addbutton{
-    height: 22px;
-    width: 35px;
-    background-color:red;
+    height: 21px;
+    width: 34px;
+    background-color: var(--akzent);
     color: white;
     border: none;
 }
@@ -143,84 +225,127 @@ input[type=text], select{
 
 
 
-/* BUTTON */
+
+
+/* LAST ROW */
+
+#lastrow{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* SETTINGS */
+
+form{
+    display: inline-block;
+    width: 75%;
+    //padding: .5%;
+
+}
+
+/* BUTTON PANE*/
+
+#buttonpane{
+    width: 23%;
+    //padding: .5%;
+    display: flex;
+    //flex-flow: column;
+    //justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+
+}
+
+#buttonpane > *{
+    height: 18px;
+    border: 0;
+    width: 100%;
+    display: block;
+}
 
 #startbutton{
-    width: calc(100% - 65px);
-    height: 22px;
-    background-color:red;
     color: white;
-    border: none;
-    display: inline-block;
-    float: right;
+    font-weight: bolder;
+    background-color: var(--akzent);
+    height: 45%;
 }
 
+#startbutton:hover{
 
-#message{
-    color: red;
 }
+
 
 
 
 
 
 /* Switch Button */
-
 .checkbox{
     display: inline-block;
+    background-color: rgb(240, 240, 240);
+    padding: 1% 1.5%;
 }
 
-#checkbox-1-div{
-    width: 50%;
+.checkbox.inline{
+    margin-right: .1%;
+    display: inline-block;
+    width: 35%;
 }
 
-label{
-    vertical-align: middle;
-}
+.checkbox:first-of-type{
+     margin-bottom: 1%;
+ }
 
-/* The switch - the box around the slider */
+/* Slider Container */
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 22px;
+    width: 28px;
+    height: 14px;
+    vertical-align: text-bottom;
 }
+
 
 /* Hide default HTML checkbox */
 .switch input {
     display: none;
 }
 
-/* The slider */
+/* The Box */
 .slider {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #dcdcdc;
     transition: .4s;
+    box-sizing: content-box;
+    border: 1px solid lightgrey;
 }
 
+/* The Checker */
 .slider:before {
     position: absolute;
     content: "";
-    height: 14px;
-    width: 14px;
-    left: 4px;
-    bottom: 4px;
+    height: 10px;
+    width: 10px;
+    left: 1px;
+    bottom: 1px;
     background-color: white;
     transition: .4s;
 }
 
-input[type=checkbox]:checked + .slider {
-    background-color: red;
-}
 
-input[type=checkbox]:focus + .slider {
-    box-shadow: 0 0 1px red;
+
+input[type=checkbox]:checked + .slider {
+    background-color: var(--akzent);
+    border-color: var(--akzent);
 }
 
 input[type=checkbox]:checked + .slider:before {
-    transform: translateX(35px);
+    transform: translateX(14px);
 }
+
+
+

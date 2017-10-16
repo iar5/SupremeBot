@@ -1,109 +1,152 @@
+:root{
+    --akzent: rgb(255,55,55);
+}
+
 *{
     font-family: "Lucida Grande", "Tahoma", sans-serif;
     font-size: 1em;
     padding:0;
     margin:0;
     box-sizing: border-box;
+    font-weight: normal;
 }
 
+.bold, h3{
+    font-weight: bold;
+}
+
+
+
+
+
+/* BASIC LAYOUT */
 body{
-    max-width: 650px;
-    padding: 1% 2%;
+    max-width: 900px;
+    margin: auto;
+    padding: 2%;
 }
 
-header{
-    margin-bottom: 1%;
+body > *{
+    margin-bottom: 2%;
 }
 
-header > h1{
-    color:red;
-    font-family: Futura LT;
-    font-style: italic;
-    font-weight: bolder;
-    font-size: 3em;
-    display:inline-block;
-    padding-left: 2%;
+
+
+
+
+/* HEADER */
+header > * {
+    display: inline-block;
 }
 
-header > p{
-    display:inline-block;
-    padding-left: 2%;
-    font-size: 1.2em;
-    font-style: italic;
+header > img{
+    height: 3.7em;
 }
+
+
+header > div{
+    padding-left: 1%;
+}
+
+header > div > p{
+    font-size: 1.1em;
+}
+
+
+
+
+
 
 
 /* FIELDSET */
-
 form{
-    padding: 2%;
+    display: inline-block;
+    background-color: rgb(247,247,247);
+    width: 100%;
+
 }
 
 fieldset{
     display: inline-block;
-    border: 0;
     width: 49%;
+    border: 0;
     vertical-align: top;
-    background-color: azure;
-}
-
-@media (max-width: 650px) {
-    fieldset{
-        width: 100%;
-    }
+    padding: 2%;
 }
 
 fieldset h3{
-    font-size: 1.2em;
+    font-family: Helvetica;
+    font-size: 1.5em;
+    margin-bottom: 3%;
 }
 
-fieldset label{
-    display:block;
-    margin: 2% 0;
+fieldset > label{
+    display: block;
+    margin: 1% 0;
 }
 
-fieldset input[type="text"], button, select:not(#credit_card_year):not(#credit_card_month){
-    height: 20px;
+fieldset input[type="text"], fieldset select{
+    display: block;
     width: 100%;
+    height: 20px;
 }
 
 
-
-/* BUTTONS */
-
-#buttonpane{
-    width: 50%;
+#credit_card_year, #credit_card_month{
     display: inline-block;
-    padding-left: 2%;
+    width: 25%;
 }
 
-@media (max-width: 650px) {
-    #buttonpane{
-        width: 100%;
-    }
-}
 
+
+
+
+
+/* BUTTONPANE */
+#buttonpane{
+    padding: 1%;
+    width: 49%;
+    float: right;
+
+}
 
 #buttonpane button{
-    background-color: red;
+    background-color: var(--akzent);
     border:none;
     color: white;
     cursor: pointer;
     display: inline-block;
+    font-weight: bold;
 }
 
 #buttonpane #cancel{
+    height: 20px;
     width: 30%;
 }
 
 #buttonpane #save{
+    height: 20px;
     width: 68%;
+    float: right;
 }
 
 #status{
     margin: 1% 0;
+    height: 1em;
 }
 
 
 
+@media (max-width: 500px) {
+    fieldset{
+        width: 100%;
+        margin: 2% 0;
+    }
+
+    #buttonpane{
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
 

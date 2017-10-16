@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
 
-    "name": "Supreme Bot",
-    "version": "1.0",
-    "description": "Adds items to your basket, fills in your data and checkouts",
+    "name": "Supreme Motion Bot",
+    "version": "1.0.3",
+    "description": "Onlineshop automation",
     
     "options_page": "options/options.html",
 
@@ -11,23 +11,22 @@
         "tabs",
         "activeTab",
         "storage",
+        "webNavigation",
         "*://www.supremenewyork.com/*"  //cross-origin permissions for programmatic injection into code to an non-active tab and
     ],
 
+    "icons":{
+        "128": "pictures/icon.png"
+    },
+
     "browser_action": {
         "default_icon": "pictures/icon.png",
-        "default_popup": "popup/popup.html",
-        "default_title": "Good luck bro"
+        "default_popup": "popup/popup.html"
     },
 
     "background": {
-        "scripts": ["background.js"]
-    },
-
-    "content_scripts": [{
-        "matches": ["*://www.supremenewyork.com/checkout"],
-        "js": ["content.js"]
-    }]
+        "scripts": ["initialisation.js", "background.js"]
+    }
 
 }
 
