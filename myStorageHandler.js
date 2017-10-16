@@ -4,29 +4,29 @@
 
 "use strict";
 
-/**
- * own storage methods
- */
 
 
 /* INITIALISATION */
 
 const OPTION_S = ["delay", "nowelcomepage", "showsoldout"]; //"stopautocheckout"
-const POPUP_S = ["gotocheckout", "autofill", "autocheckout", "manuelmode"];
+const POPUP_S = ["gotocheckout", "autofill", "autocheckout", "manualmode"];
 
 
 
 
-/* ACCESS FUNCTIONS, GET AND SET */
+/* ACCESS FUNCTIONS */
+/* GETTER */
 
-function getSetting(name, callback) {
+
+function getSetting(setting, callback) {
     chrome.storage.local.get("settings", function (items) {
-        const settings = items.settings;
-        let result;
-        for (let key in settings) {
-            if (key === name) result = settings[key]
+        if(Array.isArray(setting)){
+            callback(getObjectSubset(items.settings, setting))
         }
-        callback(result);
+        else {
+            callback(items.settings[setting]);
+            //callback(getObjectSubset(items.settings, [name]))
+        }
     })
 }
 
@@ -36,25 +36,21 @@ function getPopupSettings(callback) {
     })
 }
 
-function getOptionSettings(callback) {
+function getOptionSettings(callback){
     chrome.storage.local.get("settings", function (items) {
         callback(getObjectSubset(items.settings, OPTION_S));
     })
 }
 
-function getOptionSettingsAndFields(callback) {
-    chrome.storage.local.get(["settings", "fields"], function (items) {
-        const options = getObjectSubset(items.settings, OPTION_S);
-        const fields = items.fields;
-        callback(options, fields);
+function getFields(callback){
+    chrome.storage.local.get("fields", function (items) {
+        callback(items.fields);
     })
 }
 
-function setFields(fields, callback) {
-    chrome.storage.local.set({fields: fields}, function () {
-        if (callback) callback()
-    })
-}
+
+
+/* SETTER */
 
 function setSetting(name, value, callback) {
     chrome.storage.local.get("settings", function (items) {
@@ -66,25 +62,9 @@ function setSetting(name, value, callback) {
     })
 }
 
-function setSettings(newSettings, callback) {
-    chrome.storage.local.get("settings", function (items) {
-        const settings = items.settings;
-        for (let key in newSettings) {
-            settings[key] = newSettings[key];
-        }
-        chrome.storage.local.set({settings: settings}, function () {
-            if (callback) callback();
-        })
-    })
-}
 
-function setOptionSettingsAndFields(newSettings, newFields, callback) {
-    setSettings(newSettings, function() {
-        setFields(newFields, function () {
-            if (callback) callback();
-        })
-    })
-}
+
+/* TABLE METHODS */
 
 function removeSupremeItem(id, callback) {
     chrome.storage.local.get("supremeitems", function (items) {
@@ -94,10 +74,6 @@ function removeSupremeItem(id, callback) {
         })
     })
 }
-
-
-
-
 
 
 
@@ -113,6 +89,7 @@ function getObjectSubset(set, subset) {
 
     for (let i = 0; i < subset.length; i++) {
         const key = subset[i];
+        // TODO if(!result[key])
         result[key] = set[key]
     }
     return result;
@@ -145,6 +122,7 @@ function getArrayItemIndex(item_id, array) {
     }
     return null;
 }
+
 
 
 

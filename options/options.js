@@ -7,34 +7,37 @@ document.addEventListener("DOMContentLoaded", function () {
     const status = document.getElementById("status");
 
     function load() {
-        getOptionSettingsAndFields(function (settings, fields) {
-            const items = Object.assign({}, settings, fields);
+        getFields(function(fields){
+            getOptionSettings(function(settings){
+                const items = Object.assign({}, settings, fields);
 
-            for (let key in items) {
-                document.getElementById(key).value = items[key]
-            }
-            paypaltoggle();
-            message("loaded");
+                for (let key in items) {
+                    document.getElementById(key).value = items[key];
+                }
+                paypaltoggle();
+                message("loaded");
+            })
         });
     }
 
     function save() {
-        getOptionSettingsAndFields(function (settings, fields) {
+        getFields(function(fields){
             for (let key in fields) {
                 const element = document.getElementById(key);
                 if (!element.checkValidity()) return;
                 fields[key] = element.value.trim();
             }
-            for (let key in settings) {
-                const element = document.getElementById(key);
-                if (!element.checkValidity()) return;
-                settings[key] = element.value.trim();
-            }
-            setOptionSettingsAndFields(settings, fields, function () {
-                message("saved")
-            });
-
-        })
+            getOptionSettings(function(settings) {
+                for (let key in settings) {
+                    const element = document.getElementById(key);
+                    if (!element.checkValidity()) return;
+                    settings[key] = element.value.trim();
+                }
+                chrome.storage.local.set({fields: fields, settings: settings}, function () {
+                    message("saved")
+                });
+            })
+        });
     }
 
 
@@ -74,17 +77,20 @@ document.addEventListener("DOMContentLoaded", function () {
      * prüft ob es zu allen erwartete attributen ein doc.element gibt
      * wenn nein, werden buttons erst gar nicht mit funktionen belegt
      */
-    getOptionSettingsAndFields(function (items) {
-        for (let key in items) {
-            if (!document.getElementById(key)) {
-                message("Fatal error: field " + key + " does not exist");
-                return;
+    getFields(function(fields){
+        getOptionSettings(function(settings) {
+            const items = Object.assign({}, settings, fields);
+            for (let key in items) {
+                if (!document.getElementById(key)) {
+                    message("Fatal error: field " + key + " does not exist");
+                    return;
+                }
             }
-        }
-        load();
-        document.getElementById('save').addEventListener('click', save);
-        document.getElementById('cancel').addEventListener('click', load);
-        cardtype.onchange = paypaltoggle;
+            load();
+            document.getElementById('save').addEventListener('click', save);
+            document.getElementById('cancel').addEventListener('click', load);
+            cardtype.onchange = paypaltoggle;
+        });
     });
 });
 

@@ -22,12 +22,12 @@ if(document.getElementById("cart-addf") !== null) {
     }
 }
 else if (document.getElementById("cart-remove") !== null) {
-    //item is still in cart
-    chrome.runtime.sendMessage({itemStatus: {item: item, status: "stillInCart"}});
+    //item is already in cart
+    chrome.runtime.sendMessage({itemStatus: {item: item, status: "alreadyInCart"}});
 }
 else if (cctrl.getElementsByClassName("disabled").length !== 0) {
-    //item in different colorway is still in cart
-    chrome.runtime.sendMessage({itemStatus: {item: item, status: "stillInCart"}});
+    //item in different colorway is already in cart
+    chrome.runtime.sendMessage({itemStatus: {item: item, status: "alreadyInCart"}});
 }
 else if (cctrl.getElementsByClassName("button sold-out").length !== 0) {
     //item is sold out

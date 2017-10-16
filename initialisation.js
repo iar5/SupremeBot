@@ -30,7 +30,7 @@ chrome.storage.local.get(null, function (items) {
             gotocheckout: 0,
             autofill: 0,
             autocheckout: 0,
-            manuelmode: 0
+            manualmode: 0
         };
         chrome.storage.local.set({
             "lastId": 0,

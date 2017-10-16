@@ -5,52 +5,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* << VARIABLES >> */
 
-    const test = [
-        {"name": "tagless tee", "color": "white", "categorie": "accessories", "size": "Large", "id": 101},
-        {"name": "crew socks", "color": "black", "categorie": "accessories", "size": "", "id": 102},
-        {"name": "glasses", "color": "clear", "categorie": "accessories", "size": "", "id": 103},
-        {"name": "truck", "color": "silver", "categorie": "skate", "size": "129", "id": 104},
-        {"name": "keychain", "color": "clear", "categorie": "accessories", "size": "", "id": 105}
-    ];
     const table = document.getElementById("supremeItemsTableBody");
 
-    const boxautofill = document.getElementById("boxautofill");
-    const boxautocheckout = document.getElementById("boxautocheckout");
-    const boxautocheckoutdiv = document.getElementById("boxautocheckout-div");
+    const boxautofill = document.getElementById("autofill-box");
+    const boxautocheckout = document.getElementById("autocheckout-box");
+    const boxautocheckoutdiv = document.getElementById("autocheckout-box-div");
 
 
+    if(true) {
+        const data = [
+            {"name": "tagless tee", "color": "white", "categorie": "accessories", "size": "Large", "id": 101},
+            {"name": "crew socks", "color": "black", "categorie": "accessories", "size": "", "id": 102},
+            {"name": "glasses", "color": "clear", "categorie": "accessories", "size": "", "id": 103},
+            {"name": "truck", "color": "silver", "categorie": "skate", "size": "129", "id": 104},
+            {"name": "keychain", "color": "clear", "categorie": "accessories", "size": "", "id": 105}
+        ];
 
-
-    /* << METHODS >> */
-
-    /**
-     * creates a new table based on current storage data
-     */
-    function refreshItemTable() {
-        chrome.storage.local.get("supremeitems", function (items) {
-            const supremeitems = items.supremeitems;
-            table.innerHTML = "";
-            for (let i = 0; i < supremeitems.length; i++) {
-                const x = supremeitems[i];
-                table.innerHTML += "<tr> <td>" + x.name + "</td><td>" + x.color + "</td><td>" + x.categorie + "</td><td>" + x.size + "</td>" +
-                    "<td><input type=button id=rm" + x.id + " class=rmbutton value=rm title='Remove item'></td>  </tr>";
-            }
-
-            const buttons = document.getElementsByClassName("rmbutton");
-            for (let i = 0; i < buttons.length; i++) {
-                const button = buttons[i];
-                button.onclick = closure(button.getAttribute("id").replace("rm", ""));
-            }
-
-            function closure(id) {
-                return function () {
-                    removeSupremeItem(id, function(){
-                        refreshItemTable();
-                    });
-                }
-            }
-        })
+        document.getElementsByTagName("img")[0].onclick = function () {
+            chrome.storage.local.get("supremeitems", function (items) {
+                chrome.storage.local.set({"supremeitems": items.supremeitems.concat(data)});
+                refreshItemTable();
+            })
+        };
     }
+
+
+    /* << STYLE >> */
 
     /**
      * box style updates
@@ -66,22 +46,49 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* FUNCTIONALITY */
+
+
+
+
+    /* << FUNCTIONALITY >> */
+
+    /**
+     * creates a new table based on current storage data
+     */
+    function refreshItemTable() {
+        chrome.storage.local.get("supremeitems", function (items) {
+            const supremeitems = items.supremeitems;
+            table.innerHTML = "";
+            for (let i = 0; i < supremeitems.length; i++) {
+                const x = supremeitems[i];
+                table.innerHTML += "<tr> <td>" + x.name + "</td><td>" + x.color + "</td><td>" + x.categorie + "</td><td>" + x.size + "</td>" +
+                    "<td><input type=button id=rm" + x.id + " class='button rmbutton' value=rm title='Remove item'></td> </tr>";
+            }
+
+            const buttons = document.getElementsByClassName("rmbutton");
+            for (let i = 0; i < buttons.length; i++) {
+                const button = buttons[i];
+                button.onclick = closure(button, button.getAttribute("id").replace("rm", ""));
+            }
+
+            function closure(button, id) {
+                return function () {
+                    console.log(button);
+                    removeSupremeItem(id, function(){
+                        refreshItemTable();
+                    });
+                }
+            }
+        })
+    }
 
     document.getElementById("options").onclick = function () {
         chrome.tabs.create({'url': "/options/options.html"})
     };
 
-    document.getElementById("tableinfo").onclick = function () {
-        chrome.storage.local.get("supremeitems", function (items) {
-            chrome.storage.local.set({"supremeitems": items.supremeitems.concat(test)});
-            refreshItemTable();
-        })
-    };
 
     document.getElementById("startbutton").onclick = function () {
         chrome.runtime.sendMessage({bot: "start"})
-
     };
 
     document.getElementById("addbutton").onclick = function () {
@@ -95,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("color").value = "";
 
             chrome.storage.local.get(["supremeitems", "lastId"], function (items) {
-                console.log(items);
                 const id = items.lastId + 1;
                 const supremeitems = items.supremeitems;
                 const supremeitem = {
@@ -106,23 +112,29 @@ document.addEventListener("DOMContentLoaded", function () {
                     "id": id,
                 };
                 supremeitems.push(supremeitem);
-                chrome.storage.local.set({"supremeitems": supremeitems}, function(){
+                chrome.storage.local.set({"supremeitems": supremeitems, "lastId": id}, function(){
                     refreshItemTable();
                 });
             })
         }
     };
 
+    function clock(){
+        const date = new Date();
+        document.getElementById("time").innerHTML = date.toTimeString();
+    };
 
 
 
-    /* INITIALISATION */
+    /* << INITIALISATION >> */
 
     refreshItemTable();
+    clock();
+    setInterval(clock, 250);
 
     getPopupSettings(function (settings) {
         for (let key in settings) {
-            const box = document.getElementById("box"+key)
+            const box = document.getElementById(key+"-box");
             box.checked = settings[key];
             box.onchange = checkBoxValue(box, key)
         }

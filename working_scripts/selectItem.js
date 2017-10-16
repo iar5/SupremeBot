@@ -16,13 +16,13 @@ for (let i = 0; i < articles.length && found === false; i++) {
             const url = article.querySelectorAll("h1 > a")[0].href;
             chrome.runtime.sendMessage({itemStatus: {item: item, status: "itemFound", url: url}});
         } else {
-            chrome.runtime.sendMessage({itemStatus: {itemId: item, status: "soldOut"}});
+            chrome.runtime.sendMessage({itemStatus: {item: item, status: "soldOut"}});
         }
     }
 }
 
 if(found === false) {setTimeout(function(){
-    if(stop === false) chrome.runtime.sendMessage({itemStatus: {itemId: item, status: "notFound"}})}, 1000);
+    if(stop === false) chrome.runtime.sendMessage({itemStatus: {item: item, status: "notFound"}})}, 1000);
 }
 
 

@@ -25,48 +25,21 @@ input[type=button], .slider, .hoverbutton, .button{
     cursor: pointer;
 }
 
-.info{
-    cursor: help;
-}
-.button{
-    border: 1px solid var(--akzent);;
-    color: var(--akzent);;
-    padding: 3px;
-    background-color: white;
-    display: inline-block;
-    height: 24px;
-
-}
-
-.hoverbutton {
-    border: 1px solid grey;
-    color: grey;
-    padding: 3px;
-    background-color: white;
-    display: inline-block;
-    height: 24px;
-    opacity: .2;
-}
-
-.hoverbutton:hover{
-    /* bypassed bug: opactiy has sideeffect on border */
-    opacity: 1;
-}
-
-.hoverbuttonbox{
+input[type=checkbox]{
     display: none;
 }
 
-.hoverbuttonbox:checked + .hoverbutton{
-    background-color: var(--akzent);
-    color: white;
-    border: 1px solid transparent;
-    opacity: 1;
+.info{
+    cursor: help;
 }
 
-
-
-
+.button{
+    border: 1px solid var(--akzent);
+    color: var(--akzent);
+    background-color: white;
+    display: inline-block;
+    vertical-align: middle;
+}
 
 
 
@@ -78,7 +51,7 @@ body{
 }
 
 body>*{
-    margin-bottom: 3%;
+    margin-bottom: 2%;
 }
 
 body>*:last-child{
@@ -90,44 +63,64 @@ body>*:last-child{
 
 
 
-
 /* HEADER */
 
 header{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-top: 3%;
+    margin-bottom: 1%;
 }
 
 header > img{
-    height: 3em;
+    width: 45%;
     display: inline-block;
-    margin: .5% 0;
 }
 
 #infobar{
-    display: inline-block;
-    float: right;
+    width: 45%;
+    text-align: end;
 }
 
-#infobar > *{
-    display: inline-block;
+#time{
+    height: 18px;
+    line-height: 18px;
     vertical-align: middle;
+    color: black;
+    opacity: 1;
 }
 
-#tableinfo{
-    text-align: center;
+#clickbar{
+    width: 100%;
+    text-align: end;
+}
+
+
+/* CHECKBUTTON */
+
+.checkbutton{
+    display: inline-block;
+    height: 20px;
+    line-height: 18px;
+    vertical-align: top;
     background-color: white;
-    border: 1px solid rgb(200,200,200);
     color: grey;
-    font-size: .9em;
-    width: 1.4em;
-    margin: auto;
-    border-radius: 10px;
+    border: 1px solid grey;
+    padding: 1px;
+    opacity: .4;
 }
 
+.checkbutton:hover{
+    opacity: 1;
+}
 
+.checkbutton-box:checked + .checkbutton {
+    background-color: var(--akzent);
+    color: white;
+    border: 1px solid transparent;
+    opacity: 1;
+}
 
 
 
@@ -141,11 +134,6 @@ table{
     border-bottom: 0;
 }
 
-table > thead{
-    background-color: rgb(230, 230, 230);
-    display: none;
-}
-
 table > thead > tr{
     height: 20px;
 }
@@ -155,54 +143,43 @@ table > thead > tr > th{
     padding: .5% 0
 }
 
-table > tbody{
-    background-color: rgb(247, 247, 247);
-    border-top: 2px solid white;
-    border-bottom: 2px solid white;
+table > thead > tr > th:nth-of-type(2){
+    width: 18%;
 }
 
-table > tbody > tr{
-    border-top: 1px solid white;
+table > thead > tr >th:nth-of-type(4){
+    width: 20%;
+}
+
+
+table > tbody{
+    background-color: rgb(247, 247, 247);
+}
+
+table > tbody > tr:not(:first-of-type){
+    border-top: 1px solid rgb(247, 247, 247);
 }
 
 table > tbody > tr:hover{
     background-color: rgb(240, 240, 240);
 }
 
-table > tbody > tr > td:not(:nth-of-type(5)){
-    border-right: 1px solid white;
-}
-
-table > tbody > tr > td:nth-of-type(4), tfoot > tr > td{
+tr > *:not(:last-of-type){
     border-right: 1px solid transparent;
 }
 
-table > tfoot{
-    border-top: 2px solid white;
+tr > *:nth-of-type(4){
+    border-right: 1px solid transparent;
 }
 
-
-
-/* Table basics */
-
-table th:not(:last-of-type), tbody td:not(:last-of-type){
+tr > td:not(:last-of-type){
     padding: .5% 1%;
 }
 
-table > thead th:nth-of-type(2){
-     width: 18%;
- }
-
-table > thead th:nth-of-type(4){
-    width: 20%;
-}
 
 table .rmbutton{
     height: 18px;
     width: 34px;
-    background-color: white;
-    color: var(--akzent);
-    border: 1px solid var(--akzent);
 }
 
 table .rmbutton:hover{
@@ -211,7 +188,7 @@ table .rmbutton:hover{
 }
 
 table #addbutton{
-    height: 21px;
+    height: 22px;
     width: 34px;
     background-color: var(--akzent);
     color: white;
@@ -229,56 +206,21 @@ table input[type=text], table select{
 
 
 /* LAST ROW */
-
 #lastrow{
     display: flex;
     justify-content: space-between;
 }
 
-#lastrow #settingpane{
-    display: inline-block;
+
+/* LAST ROW -> SETTING PANE */
+#settingpane{
     width: 75%;
-    padding-left: .5%;
+    display: inline-block;
+    background-color: rgb(247, 247, 247);
+    padding: 1% 0 1% 1%;
 }
 
-/* BUTTON PANE*/
-
-#lastrow #buttonpane{
-    width: 23%;
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-    //align-items: flex-end;
-    position: relative;
-
-}
-
-#lastrow #buttonpane > *{
-    height: 48%;
-    width: 100%;
-    display: block;
-}
-
-#lastrow #buttonpane #startbutton{
-    color: white;
-    font-weight: bolder;
-    background-color: var(--akzent);
-    border: 0;
-}
-
-#lastrow #buttonpane #startbutton:hover{
-
-}
-
-#lastrow #buttonpane #time{
-    padding: 0;
-}
-
-
-
-
-
-/* Switch Button */
+/* LAST ROW -> SETTING PANE -> Switch Button */
 .checkbox{
     display: inline-block;
     //background-color: rgb(245, 245, 245);
@@ -286,14 +228,13 @@ table input[type=text], table select{
 }
 
 .checkbox.inline{
-    width: 30%;
+    width: 37%;
 }
 
 .checkbox:first-of-type{
      margin-bottom: 1%;
  }
 
-/* Slider Container */
 .switch {
     position: relative;
     display: inline-block;
@@ -302,13 +243,6 @@ table input[type=text], table select{
     vertical-align: text-bottom;
 }
 
-
-/* Hide default HTML checkbox */
-.switch input {
-    display: none;
-}
-
-/* The Box */
 .slider {
     position: absolute;
     top: 0;
@@ -321,7 +255,6 @@ table input[type=text], table select{
     border: 1px solid lightgrey;
 }
 
-/* The Checker */
 .slider:before {
     position: absolute;
     content: "";
@@ -344,3 +277,61 @@ input[type=checkbox]:checked + .slider:before {
 
 
 
+
+/* LAST ROW -> BUTTON PANE */
+#buttonpane{
+    width: 23%;
+    display: flex;
+//justify-content: space-between;
+    flex-flow: column;
+    justify-content: flex-end;
+}
+
+#buttonpane > *{
+    height: 45%;
+    width: 100%;
+    display: block;
+}
+
+
+/* LAST ROW -> BUTTON PANE -> STARTPANE */
+#startpane{
+    display: flex;
+}
+
+#startbutton{
+    border: 1px solid  var(--akzent);
+    color: white;;
+    font-weight: bolder;
+    background-color: var(--akzent);
+    width: 100%;
+}
+
+.signal {
+    border: 5px solid #333;
+    border-radius: 30px;
+    height: 30px;
+    left: 50%;
+    margin: -15px 0 0 -15px;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+
+    animation: pulsate 1s ease-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(.1);
+        opacity: 0.0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}

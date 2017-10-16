@@ -1,10 +1,10 @@
 {
     "manifest_version": 2,
 
-    "name": "Supreme Motion Bot",
-    "version": "1.0.4",
-    "description": "Onlineshop automation",
-    
+    "name": "Supreme+ Bot",
+    "version": "1.1.2",
+    "description": "Advanced http://www.supremenewyork.com/ onlineshop automation",
+
     "options_page": "options/options.html",
 
     "permissions": [
@@ -12,7 +12,7 @@
         "activeTab",
         "storage",
         "webNavigation",
-        "*://www.supremenewyork.com/*"  //cross-origin permissions for programmatic injection into code to an non-active tab and
+        "*://www.supremenewyork.com/*"
     ],
 
     "icons":{
@@ -29,4 +29,3 @@
     }
 
 }
-

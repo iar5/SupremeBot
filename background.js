@@ -14,10 +14,12 @@ var cartTab;
  */
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
-    // STEP 1.0:
-    // CREATE TAB FOR EVERY ITEM AND SEARCH IT IN HIS CATEGORIE
     if (message.bot !== undefined) {
+
+         // STEP 1.0:
+        // CREATE TAB FOR EVERY ITEM AND SEARCH IT IN HIS CATEGORIE
         if (message.bot === "start") {
+            //TODO check if store is open (if not the cart tab cannot be resolved and will land on /shop
             chrome.tabs.create({url: "https://www.supremenewyork.com/shop/cart", active: true}, function (tab) {cartTab = tab;});
             chrome.storage.local.get("supremeitems", function (items) {
                 const supremeitems = items.supremeitems;
@@ -31,7 +33,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                             active: false
                         }, function (tab) {
                             chrome.tabs.executeScript(tab.id, {code: 'var item = ' + JSON.stringify(item)}, function () {
-                                chrome.tabs.executeScript(tab.id, {file: "working_scripts/shopItem_1.js"}, function (tab) {
+                                chrome.tabs.executeScript(tab.id, {file: "working_scripts/selectItem.js"}, function (tab) {
+                                    console.log("working script 1 injected");
+
                                     if (!tab) console.log("Error: stopped bot caused by closing last tab");
                                     else {
                                         i++;
@@ -54,28 +58,34 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     else if (message.itemStatus !== undefined) {
         const status = message.itemStatus.status;
         const item = message.itemStatus.item;
+        const url = message.itemStatus.url;
+
 
          // STEP 1.1:
-        // RELOAD TAB AND INJECT SCRIPT AGAIN
+        //  RELOAD TAB AND INJECT SCRIPT AGAIN
         //TODO wenn erste item gefunden andere tabs noch 1x suchen lassen und dann stoppen
         if (status === "notFound") {
-            updateTab(sender.tab, sender.url, "working_scripts/shopItem_1.js", item);
+            updateTab(sender.tab, sender.url, "working_scripts/selectItem.js", item);
         }
 
          // STEP 2:
-        // SELECT SIZE AND ADD IT TO BASKET
+        //  SELECT SIZE AND ADD IT TO BASKET
         else if (status === "itemFound") {
-            updateTab(sender.tab, message.itemStatus.url, "working_scripts/shopItem_2.js", item);
+            updateTab(sender.tab, url, "working_scripts/selectSize.js", item);
         }
-
         else if (status === "soldOut") {
+            //TODO
+            chrome.tabs.update(sender.tab.id, {url: url})
+        }
+        else if (status === "alreadyInCart") {
+            //TODO
+            chrome.tabs.update(sender.tab.id, {url: url});
         }
 
-        else if (status === "stillInCart") {
-        }
+
 
          // STEP 3:
-        // STOP/CONTINUE IF ALL ITEMS ARE ADDED
+        //  STOP/CONTINUE IF ALL ITEMS ARE ADDED
         else if (status === "inCart") {
             removeSupremeItem(item.id, function (removed) {
                 //chrome.tabs.remove(sender.tab.id)
@@ -83,12 +93,12 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                     chrome.storage.local.get("settings", function (items) {
                         const settings = items.settings;
                         if (settings.gotocheckout === 1) {
-                            if (settings.manuelmode === 1) {
-                                // gotocheckout will be executed on url match
+                            if (settings.manualmode === 1) {
+                                // if maualmode is enabled gotocheckout will be executed on url match
                                 chrome.tabs.update(cartTab.id, {url: "https://www.supremenewyork.com/checkout"});
                             }
                             else {
-                                updateTab(cartTab, "https://www.supremenewyork.com/checkout", "/working_scripts/shopItem_3.js");
+                                updateTab(cartTab, "https://www.supremenewyork.com/checkout", "/working_scripts/autofill_checkout.js");
                             }
                         }
                     })
@@ -101,6 +111,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 /**
  * Fires on every tab update. good for matching urls even on ajax changes
+ *
  */
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status === "complete") {
@@ -115,14 +126,14 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             getSetting("showsoldout", function (showsoldout) {
                 // showsoldout is a string
                 if (showsoldout == 1)
-                    chrome.tabs.insertCSS(tabId, {file: "working_scripts/new.css", allFrames: true}, function () {
+                    chrome.tabs.insertCSS(tabId, {file: "working_css/showsoldouttag.css", allFrames: true}, function () {
                     });
             })
         }
         else if (tab.url.match(/^(http|https):\/\/www.supremenewyork.com\/checkout$/)) {
-            getSetting("manuelmode", function (manuelmode) {
-                if (manuelmode == 1) {
-                    chrome.tabs.executeScript(tabId, {file: "working_scripts/shopItem_3.js"});
+            getSetting("manualmode", function (manualmode) {
+                if (manualmode == 1) {
+                    chrome.tabs.executeScript(tabId, {file: "working_scripts/autofill_checkout.js"});
                 }
             })
         }
@@ -159,15 +170,15 @@ function updateTab(tab, url, script, object) {
 /*
  Bot beenden, wenn
  - alle geöffneten Tabs geschlossen sind
- - verlmüpfung von ausgangs array item ids mit tab ids
+ - verknüpfung von ausgangs array item ids mit tab ids
  - je nach setting (sold out, didnt found,..) dann "stop" bot
 
- testen obs klappt dass beim Drop mehrere Items hinzugefügt werden (oder bei jedem dann gleichzeitig auf hinzufügen gedrückt wird und es sich wieder blockiert)
+
+ TODO TEST:  was wenn carttab wurde geschlossen
+
+ TODO TEST: beim drop mehrere Items hinzugefügt werden (oder bei jedem dann gleichzeitig auf hinzufügen gedrückt wird und es sich wieder blockiert)
  mögliche Lösung: "ready to add" häufen und dann nacheinander mit delay ausführen (ausführ stack)
 
- //TODO was wenn carttab wurde geschlossen
-
- //TODO: online time api
  */
 
 

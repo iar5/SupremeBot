@@ -7,141 +7,136 @@
         <link rel="stylesheet" href="popup.css">
         <script type="text/javascript" src="../myStorageHandler.js"></script>
         <script type="text/javascript" src="popup.js"></script>
-
     </head>
     <body>
         <header>
-            <img src="../pictures/motion.png" alt="Supreme Logo">
+            <img src="../pictures/logo.png" alt="Supreme Logo">
             <div id="infobar">
-                <label title="Autofill and Checkout will even execute for manuel click on supreme checkout. Nice for unannounced items or if you added an invalid one">
-                    <input class ="hoverbuttonbox" type="checkbox" id="boxmanuelmode">
-                    <label class="hoverbutton" for="boxmanuelmode">ManuelMode</label>
-                </label>
+                <div id="time" title="Your local time"></div>
 
-                <img class="hoverbutton" id="options" src="../pictures/settings.jpg" title="Autofill data and advanced settings">
+                <div id="clickbar">
+                    <label>
+                        <input id="manualmode-box" class="checkbutton-box" type="checkbox">
+                        <label id="manualmode" class="checkbutton" for="manualmode-box" title="Autofill and Checkout will even execute on manual click at supreme checkout if activate. Good to take a look for unannounced items or if you added an invalid one">ManualMode</label>
+                    </label>
+
+                    <img id="options" class="checkbutton" src="../pictures/settings.png" title="Autofill data and advanced settings">
+                </div>
             </div>
         </header>
         <table>
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Color</th>
-                    <th>Categories</th>
-                    <th>Size</th>
-                    <th><p class="info" id="tableinfo" title="The bot adds the table-items to your basket. For each item the bot creates a tab which keeps refreshing until it found your item. Just close a tab if you e.g. did a writing mistake.">? </p></th>
-                </tr>
+            <tr>
+                <th><input type="text" id="name" placeholder="Name" autocomplete="off"></th>
+                <th><input type="text" id="color" placeholder="Color" autocomplete="off"></th>
+                <th>
+                    <select name="categories" id="categories">
+                        <option value="Jackets">Jackets</option>
+                        <option value="Shirts">Shirts</option>
+                        <option value="Tops_Sweaters">Tops_Sweaters</option>
+                        <option value="Sweatshirts">Sweatshirts</option>
+                        <option value="Pants">Pants</option>
+                        <option value="T-Shirts">T-Shirts</option>
+                        <option value="Hats">Hats</option>
+                        <option value="Shorts">Shorts</option>
+                        <option value="Bags">Bags</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Skate">Skate</option>
+                    </select>
+                </th>
+                <th>
+                    <select name="size" id="size">
+                        <option value="">-</option>
+
+                        <optgroup label="Jackets/Coats/Shirts">
+                            <option value="Small">Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">Large</option>
+                            <option value="XLarge">XLarge</option>
+                        </optgroup>
+                        <optgroup label="Pants">
+                            <option value="30">30</option>
+                            <option value="32">32</option>
+                            <option value="36">34</option>
+                            <option value="36">36</option>
+                        </optgroup>
+                        <optgroup label="Shoes (Dr. Martens)">
+                            <option value="8">8</option>
+                            <option value="8.5">8.5</option>
+                            <option value="9">9</option>
+                            <option value="9.5">9.5</option>
+                            <option value="10">10</option>
+                            <option value="10.5">10.5</option>
+                            <option value="11">11</option>
+                            <option value="11.5">11.5</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                        </optgroup>
+                        <optgroup label="Shoes (Nike)">
+                            <option value="US 8.5 / UK 7.5">US 8.5 / UK 7.5</option>
+                            <option value="US 9 / UK 8">US 9 / UK 8</option>
+                            <option value="US 9.5 / UK 8.5">US 9.5 / UK 8.5</option>
+                            <option value="US 10 / UK 9">US 10 / UK 9</option>
+                            <option value="US 10.5 / UK 9.5">US 10.5 / UK 9.5</option>
+                            <option value="US 11 / UK 10">US 11 / UK 10</option>
+                            <option value="US 11.5 / UK 10.5">US 11.5 / UK 10.5</option>
+                            <option value="US 12 / UK 11">US 12 / UK 11</option>
+                            <option value="US 13 / UK 12">US 13 / UK 12</option>
+                        </optgroup>
+                        <optgroup label="Trucks">
+                            <option value="129">129</option>
+                            <option value="139">139</option>
+                            <option value="149">149</option>
+                        </optgroup>
+                    </select>
+                </th>
+                <th>
+                    <input type="button" id="addbutton" value="add">
+                </th>
+            </tr>
             </thead>
             <tbody id="supremeItemsTableBody">
             </tbody>
             <tfoot>
-                <tr>
-                    <td><input type="text" id="name" placeholder="Name" autocomplete="off"></td>
-                    <td><input type="text" id="color" placeholder="Color" autocomplete="off"></td>
-                    <td>
-                        <select name="categories" id="categories">
-                            <option value="Jackets">Jackets</option>
-                            <option value="Shirts">Shirts</option>
-                            <option value="Tops_Sweaters">Tops_Sweaters</option>
-                            <option value="Sweatshirts">Sweatshirts</option>
-                            <option value="Pants">Pants</option>
-                            <option value="T-Shirts">T-Shirts</option>
-                            <option value="Hats">Hats</option>
-                            <option value="Bags">Bags</option>
-                            <option value="Shoes">Shoes</option>
-                            <option value="Accessories">Accessories</option>
-                            <option value="Skate">Skate</option>
-                            <!-- shorts? -->
-                        </select>
-                    </td>
-                    <td>
-                        <select name="size" id="size">
-                            <option value="">-</option>
-
-                            <optgroup label="Jackets/Coats/Shirts">
-                                <option value="Small">Small</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Large">Large</option>
-                                <option value="XLarge">XLarge</option>
-                            </optgroup>
-                            <optgroup label="Pants">
-                                <option value="30">30</option>
-                                <option value="32">32</option>
-                                <option value="36">34</option>
-                                <option value="36">36</option>
-                            </optgroup>
-                            <optgroup label="Shoes (Dr. Martens)">
-                                <option value="8">8</option>
-                                <option value="8.5">8.5</option>
-                                <option value="9">9</option>
-                                <option value="9.5">9.5</option>
-                                <option value="10">10</option>
-                                <option value="10.5">10.5</option>
-                                <option value="11">11</option>
-                                <option value="11.5">11.5</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                            </optgroup>
-                            <optgroup label="Shoes (Nike)">
-                                <option value="US 8.5 / UK 7.5">US 8.5 / UK 7.5</option>
-                                <option value="US 9 / UK 8">US 9 / UK 8</option>
-                                <option value="US 9.5 / UK 8.5">US 9.5 / UK 8.5</option>
-                                <option value="US 10 / UK 9">US 10 / UK 9</option>
-                                <option value="US 10.5 / UK 9.5">US 10.5 / UK 9.5</option>
-                                <option value="US 11 / UK 10">US 11 / UK 10</option>
-                                <option value="US 11.5 / UK 10.5">US 11.5 / UK 10.5</option>
-                                <option value="US 12 / UK 11">US 12 / UK 11</option>
-                                <option value="US 13 / UK 12">US 13 / UK 12</option>
-                            </optgroup>
-                            <optgroup label="Trucks">
-                                <option value="129">129</option>
-                                <option value="139">139</option>
-                                <option value="149">149</option>
-                            </optgroup>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="button" id="addbutton" value="add">
-                    </td>
-                </tr>
             </tfoot>
         </table>
 
         <div id="lastrow">
-            <form id="settingpane">
+            <div id="settingpane">
 
                 <label class="checkbox" title="Depending on your preferences Autofill and Checkout will (not) run on checkout page">
                     <label class="switch">
-                        <input type="checkbox" id="boxgotocheckout">
+                        <input type="checkbox" id="gotocheckout-box">
                         <div class="slider"></div>
                     </label>
-                    <label class="info" for="boxgotocheckout">Go to checkout after all items were added</label>
+                    <label class="info" for="gotocheckout-box">Go to checkout after all items were added</label>
                 </label>
 
                 <label class="checkbox inline" id="boxautofill-div">
                     <label class="switch">
-                        <input type="checkbox" id="boxautofill">
+                        <input type="checkbox" id="autofill-box">
                         <div class="slider"></div>
                     </label>
-                    <label for="boxautofill">Autofill</label>
+                    <label for="autofill-box">Autofill</label>
                 </label>
 
-                <label class="checkbox inline info" id="boxautocheckout-div" title="Checkout after a set delay. Will turned off after every usage">
+                <label class="checkbox inline info" id="autocheckout-box-div" title="Checkout after a set delay. Will turned off after every usage">
                     <label class="switch">
-                        <input type="checkbox" id="boxautocheckout" >
+                        <input type="checkbox" id="autocheckout-box">
                         <div class="slider"></div>
                     </label>
-                    <label class="info" for="boxautocheckout">Checkout</label>
+                    <label class="info" for="autocheckout-box">Checkout</label>
                 </label>
 
-            </form>
+            </div>
             <div id="buttonpane">
-
-                <div id="time" class="button">Time</div>
-                <input type="button" id="startbutton" value="Start">
+                <div id="startpane">
+                    <input type="button" id="startbutton" value="Start">
+                </div>
             </div>
         </div>
-
     </body>
 </html>
 
