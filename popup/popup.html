@@ -90,6 +90,12 @@
                             <option value="139">139</option>
                             <option value="149">149</option>
                         </optgroup>
+                        <optgroup label="Decks (vary)">
+                            <option value="7.875">875</option>
+                            <--option value="8">8<--/option>
+                            <option value="8.25">25</option>
+                            <option value="8.375">8.375</option>
+                        </optgroup>
                     </select>
                 </th>
                 <th>
@@ -106,28 +112,33 @@
         <div id="lastrow">
             <div id="settingpane">
 
-                <label class="checkbox" title="Depending on your preferences Autofill and Checkout will (not) run on checkout page">
-                    <label class="switch">
-                        <input type="checkbox" id="gotocheckout-box">
-                        <div class="slider"></div>
-                    </label>
-                    <label class="info" for="gotocheckout-box">Go to checkout after all items were added</label>
-                </label>
-
                 <label class="checkbox inline" id="boxautofill-div">
                     <label class="switch">
                         <input type="checkbox" id="autofill-box">
                         <div class="slider"></div>
                     </label>
-                    <label for="autofill-box">Autofill</label>
+                    <label for="autofill-box">Autofill
+                    </label>
                 </label>
 
-                <label class="checkbox inline info" id="autocheckout-box-div" title="Checkout after a set delay. Will turned off after every usage">
+                <label class="checkbox inline" id="autocheckout-box-div">
                     <label class="switch">
                         <input type="checkbox" id="autocheckout-box">
                         <div class="slider"></div>
                     </label>
-                    <label class="info" for="autocheckout-box">Checkout</label>
+                    <label for="autocheckout-box">Process checkout
+                        <div id="autocheckout-info" class="infoicon" title="Will turned off after every usage. Take care in combination with ManualMode!">i</div>
+                    </label>
+                </label>
+
+                <label class="checkbox">
+                    <label class="switch">
+                        <input type="checkbox" id="gotocheckout-box">
+                        <div class="slider"></div>
+                    </label>
+                    <label for="gotocheckout-box">Go to / proceed on checkout-page
+                        <div class="infoicon" title="Depending on your preferences Autofill and Checkout will executed on checkout page">i</div>
+                    </label>
                 </label>
 
             </div>

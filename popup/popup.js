@@ -11,8 +11,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const boxautocheckout = document.getElementById("autocheckout-box");
     const boxautocheckoutdiv = document.getElementById("autocheckout-box-div");
 
+    const boxmanualmode = document.getElementById("manualmode-box")
+    const autocheckoutinfo = document.getElementById("autocheckout-info");
 
-    if(true) {
+    if(false) {
         const data = [
             {"name": "tagless tee", "color": "white", "categorie": "accessories", "size": "Large", "id": 101},
             {"name": "crew socks", "color": "black", "categorie": "accessories", "size": "", "id": 102},
@@ -38,10 +40,18 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateBoxValueAndCss() {
         if (boxautofill.checked) {
             boxautocheckoutdiv.style.opacity = "1";
-        } else {
+        }
+        else {
             boxautocheckoutdiv.style.opacity = ".3";
             boxautocheckout.checked = false;
             setSetting("autocheckout", 0)
+        }
+
+        if (boxautocheckout.checked && boxmanualmode.checked){
+            autocheckoutinfo.classList.add("danger");
+        }
+        else{
+            autocheckoutinfo.classList.remove("danger");
         }
     }
 
