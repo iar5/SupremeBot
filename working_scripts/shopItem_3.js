@@ -5,32 +5,34 @@
  }]
  */
 
-chrome.storage.local.get(["autofill", "autocheckout", "fields", "settings"], function(items) {
-    if (items.autofill === 1) {
-        const fields = items.fields;
-        let ok = true;
+chrome.storage.local.get(["settings", "fields"], function(items) {
+    const settings = items.settings;
+    const fields = items.fields;
+
+    if (settings.autofill === 1) {
         for (let key in fields) {
             const element = document.getElementById(key);
             const value = fields[key];
-            if (element !== null) {
-                //if(element.tagName === "SELECT"); //TODO emulate manually handled option select to trigger local events (country -> refreshes tax box, paypal toggle,..)
-                //else
-                element.value = value;
-            }
+            if (element === null) console.log("Error: Cannot find element for field " + key);
+            else if (value === "");
             else {
-                console.log("Error: Cannot find Field for " + key);
-                ok = false;
+                /*if(element.tagName === "SELECT"){
+                    element.options[] .click()
+                 element.selectedIndex = i;
+
+                 }*/
+                element.value = value;
             }
         }
 
-        if (ok === true) {
-            document.getElementById("order_terms").nextSibling.click();
-            if (items.autocheckout === 1) {
-                setTimeout(function () {
-                    chrome.storage.local.set({"autocheckout": 0});
-                    document.getElementById("checkout_form").submit();
-                }, items.settings.delay);
-            }
+        document.getElementById("order_terms").nextSibling.click();
+        if (settings.autocheckout === 1) {
+            setTimeout(function () {
+                settings.autocheckout = 0;
+                chrome.storage.local.set({"settings": settings});
+                document.getElementById("checkout_form").submit();
+            }, settings.delay);
         }
+
     }
 });

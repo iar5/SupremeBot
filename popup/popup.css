@@ -1,3 +1,5 @@
+/* BASIC STYLES AND SIZING */
+
 :root{
     --akzent: rgb(255,55,55);
 }
@@ -19,10 +21,56 @@ label{
     vertical-align: middle;
 }
 
+input[type=button], .slider, .hoverbutton, .button{
+    cursor: pointer;
+}
+
+.info{
+    cursor: help;
+}
+.button{
+    border: 1px solid var(--akzent);;
+    color: var(--akzent);;
+    padding: 3px;
+    background-color: white;
+    display: inline-block;
+    height: 24px;
+
+}
+
+.hoverbutton {
+    border: 1px solid grey;
+    color: grey;
+    padding: 3px;
+    background-color: white;
+    display: inline-block;
+    height: 24px;
+    opacity: .2;
+}
+
+.hoverbutton:hover{
+    /* bypassed bug: opactiy has sideeffect on border */
+    opacity: 1;
+}
+
+.hoverbuttonbox{
+    display: none;
+}
+
+.hoverbuttonbox:checked + .hoverbutton{
+    background-color: var(--akzent);
+    color: white;
+    border: 1px solid transparent;
+    opacity: 1;
+}
+
+
+
+
+
 
 
 /* BASIC WINDOW SIZING */
-
 
 body{
     width: 390px;
@@ -37,9 +85,8 @@ body>*:last-child{
     margin-bottom: 0;
 }
 
-input[type=button], .slider, .button{
-    cursor: pointer;
-}
+
+
 
 
 
@@ -69,41 +116,6 @@ header > img{
     vertical-align: middle;
 }
 
-.button {
-    border: 1px solid grey;
-    color: grey;
-    padding: 3px;
-    background-color: white;
-    display: inline-block;
-    height: 24px;
-    opacity: .2;
-}
-
-.button:hover{
-    /* bypassed bug: opactiy has sideeffect on border */
-    opacity: 1;
-
-}
-
-#boxmanuelmode{
-    display: none;
-}
-
-#boxmanuelmode:checked + .button{
-    background-color: var(--akzent);
-    color: white;
-    border: 1px solid transparent;
-    opacity: 1;
-}
-
-
-
-
-
-.info{
-    cursor: help;
-}
-
 #tableinfo{
     text-align: center;
     background-color: white;
@@ -118,7 +130,10 @@ header > img{
 
 
 
+
+
 /* TABLE */
+
 table{
     width: 100%;
     text-align: left;
@@ -126,76 +141,63 @@ table{
     border-bottom: 0;
 }
 
-/* right/left table border
-table > *{
-    border-left: 2px solid rgb(230, 230, 230);
-    border-right: 2px solid rgb(230, 230, 230);
-}
-*/
-
-/* Table coloring and border */
-thead{
+table > thead{
     background-color: rgb(230, 230, 230);
+    display: none;
 }
 
-thead th{
+table > thead > tr{
+    height: 20px;
+}
+
+table > thead > tr > th{
     font-weight: bold;
     padding: .5% 0
 }
 
-tbody{
+table > tbody{
     background-color: rgb(247, 247, 247);
     border-top: 2px solid white;
     border-bottom: 2px solid white;
 }
 
-tbody > tr{
+table > tbody > tr{
     border-top: 1px solid white;
 }
 
-tbody > tr > td:not(:nth-of-type(5)){
-    border-right: 1px solid white;
-}
-
-tbody > tr > td:nth-of-type(4), tfoot > tr > td{
-    border-right: 1px solid transparent;
-}
-
-tfoot{
-    border-top: 2px solid white;
-}
-
-/* row hover */
-tbody tr:hover{
+table > tbody > tr:hover{
     background-color: rgb(240, 240, 240);
 }
 
-/* Table bigger head */
-thead>tr{
-    height: 20px;
+table > tbody > tr > td:not(:nth-of-type(5)){
+    border-right: 1px solid white;
 }
 
-/* Table padding */
-th:not(:last-of-type), tbody td:not(:last-of-type){
+table > tbody > tr > td:nth-of-type(4), tfoot > tr > td{
+    border-right: 1px solid transparent;
+}
+
+table > tfoot{
+    border-top: 2px solid white;
+}
+
+
+
+/* Table basics */
+
+table th:not(:last-of-type), tbody td:not(:last-of-type){
     padding: .5% 1%;
 }
 
-/* column sizing */
-thead th:nth-of-type(2){
+table > thead th:nth-of-type(2){
      width: 18%;
  }
 
-thead th:nth-of-type(4){
+table > thead th:nth-of-type(4){
     width: 20%;
 }
 
-
-
-
-
-
-/* Table buttons */
-.rmbutton{
+table .rmbutton{
     height: 18px;
     width: 34px;
     background-color: white;
@@ -203,12 +205,12 @@ thead th:nth-of-type(4){
     border: 1px solid var(--akzent);
 }
 
-.rmbutton:hover{
+table .rmbutton:hover{
     background-color: var(--akzent);
     color: white;
 }
 
-#addbutton{
+table #addbutton{
     height: 21px;
     width: 34px;
     background-color: var(--akzent);
@@ -216,8 +218,7 @@ thead th:nth-of-type(4){
     border: none;
 }
 
-/* Table inputs */
-input[type=text], select{
+table input[type=text], table select{
     width: 100%;
     height: 22px;
 }
@@ -234,46 +235,44 @@ input[type=text], select{
     justify-content: space-between;
 }
 
-/* SETTINGS */
-
-form{
+#lastrow #settingpane{
     display: inline-block;
     width: 75%;
-    //padding: .5%;
-
+    padding-left: .5%;
 }
 
 /* BUTTON PANE*/
 
-#buttonpane{
+#lastrow #buttonpane{
     width: 23%;
-    //padding: .5%;
     display: flex;
-    //flex-flow: column;
-    //justify-content: space-between;
-    align-items: flex-end;
+    flex-flow: column;
+    justify-content: space-between;
+    //align-items: flex-end;
     position: relative;
 
 }
 
-#buttonpane > *{
-    height: 18px;
-    border: 0;
+#lastrow #buttonpane > *{
+    height: 48%;
     width: 100%;
     display: block;
 }
 
-#startbutton{
+#lastrow #buttonpane #startbutton{
     color: white;
     font-weight: bolder;
     background-color: var(--akzent);
-    height: 45%;
+    border: 0;
 }
 
-#startbutton:hover{
+#lastrow #buttonpane #startbutton:hover{
 
 }
 
+#lastrow #buttonpane #time{
+    padding: 0;
+}
 
 
 
@@ -282,14 +281,12 @@ form{
 /* Switch Button */
 .checkbox{
     display: inline-block;
-    background-color: rgb(240, 240, 240);
-    padding: 1% 1.5%;
+    //background-color: rgb(245, 245, 245);
+    //padding: 1% 1.5%;
 }
 
 .checkbox.inline{
-    margin-right: .1%;
-    display: inline-block;
-    width: 35%;
+    width: 30%;
 }
 
 .checkbox:first-of-type{
@@ -335,8 +332,6 @@ form{
     background-color: white;
     transition: .4s;
 }
-
-
 
 input[type=checkbox]:checked + .slider {
     background-color: var(--akzent);

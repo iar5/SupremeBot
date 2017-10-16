@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Supreme Motion Bot",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Onlineshop automation",
     
     "options_page": "options/options.html",
@@ -25,7 +25,7 @@
     },
 
     "background": {
-        "scripts": ["initialisation.js", "background.js"]
+        "scripts": ["initialisation.js", "myStorageHandler.js", "background.js"]
     }
 
 }

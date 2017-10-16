@@ -26,18 +26,18 @@ chrome.storage.local.get(null, function (items) {
             //stopautocheckout: "so_nf",
             delay: 2250,
             nowelcomepage: 1,
-            showsoldout: 1
+            showsoldout: 1,
+            gotocheckout: 0,
+            autofill: 0,
+            autocheckout: 0,
+            manuelmode: 0
         };
         chrome.storage.local.set({
-            "supremeitems": [],
             "lastId": 0,
+            "supremeitems": [],
             "fields": fields,
             "settings": settings,
-            "gotocheckout": 0,
-            "autofill": 0,
-            "autocheckout": 0,
-            "manuelmode": 0
         });
-        console.log("initialised");
+        console.log("Initialised");
     }
 });

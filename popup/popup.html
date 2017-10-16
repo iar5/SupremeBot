@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="popup.css">
+        <script type="text/javascript" src="../myStorageHandler.js"></script>
         <script type="text/javascript" src="popup.js"></script>
 
     </head>
@@ -13,11 +14,11 @@
             <img src="../pictures/motion.png" alt="Supreme Logo">
             <div id="infobar">
                 <label title="Autofill and Checkout will even execute for manuel click on supreme checkout. Nice for unannounced items or if you added an invalid one">
-                    <input type="checkbox" id="boxmanuelmode">
-                    <label for="boxmanuelmode" class="button">ManuelMode</label>
+                    <input class ="hoverbuttonbox" type="checkbox" id="boxmanuelmode">
+                    <label class="hoverbutton" for="boxmanuelmode">ManuelMode</label>
                 </label>
 
-                <img class="button" id="options" src="../pictures/settings.jpg" title="Autofill data and advanced settings">
+                <img class="hoverbutton" id="options" src="../pictures/settings.jpg" title="Autofill data and advanced settings">
             </div>
         </header>
         <table>
@@ -25,7 +26,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Color</th>
-                    <th>Categorie</th>
+                    <th>Categories</th>
                     <th>Size</th>
                     <th><p class="info" id="tableinfo" title="The bot adds the table-items to your basket. For each item the bot creates a tab which keeps refreshing until it found your item. Just close a tab if you e.g. did a writing mistake.">? </p></th>
                 </tr>
@@ -34,10 +35,10 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td><input type="text" id="name" placeholder="name" autocomplete="off"></td>
-                    <td><input type="text" id="color" placeholder="color" autocomplete="off"></td>
+                    <td><input type="text" id="name" placeholder="Name" autocomplete="off"></td>
+                    <td><input type="text" id="color" placeholder="Color" autocomplete="off"></td>
                     <td>
-                        <select name="categorie" id="categorie">
+                        <select name="categories" id="categories">
                             <option value="Jackets">Jackets</option>
                             <option value="Shirts">Shirts</option>
                             <option value="Tops_Sweaters">Tops_Sweaters</option>
@@ -136,8 +137,8 @@
             </form>
             <div id="buttonpane">
 
+                <div id="time" class="button">Time</div>
                 <input type="button" id="startbutton" value="Start">
-
             </div>
         </div>
 

@@ -9,6 +9,7 @@
     margin:0;
     box-sizing: border-box;
     font-weight: normal;
+    outline: none;
 }
 
 .bold, h3{
@@ -60,19 +61,27 @@ header > div > p{
 
 /* FIELDSET */
 form{
-    display: inline-block;
-    background-color: rgb(247,247,247);
     width: 100%;
-
 }
 
 fieldset{
-    display: inline-block;
-    width: 49%;
     border: 0;
     vertical-align: top;
+    display: inline-block;
+
+}
+
+.fieldset-row{
+    background-color: rgb(247,247,247);
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.fieldset-column{
+    width: 49%;
     padding: 2%;
 }
+
 
 fieldset h3{
     font-family: Helvetica;
@@ -80,17 +89,22 @@ fieldset h3{
     margin-bottom: 3%;
 }
 
-fieldset > label{
+fieldset label{
     display: block;
     margin: 1% 0;
 }
 
-fieldset input[type="text"], fieldset select{
+input[type="text"], select{
+    border: 1px solid lightgrey;
     display: block;
     width: 100%;
     height: 20px;
 }
 
+input[type="text"]:invalid {
+    border: 1px solid var(--akzent);
+    box-shadow: 0 0 1px var(--akzent);
+}
 
 #credit_card_year, #credit_card_month{
     display: inline-block;
@@ -104,13 +118,11 @@ fieldset input[type="text"], fieldset select{
 
 /* BUTTONPANE */
 #buttonpane{
-    padding: 1%;
     width: 49%;
     float: right;
-
 }
 
-#buttonpane button{
+#buttonpane input[type=button]{
     background-color: var(--akzent);
     border:none;
     color: white;
@@ -137,16 +149,20 @@ fieldset input[type="text"], fieldset select{
 
 
 
-@media (max-width: 500px) {
-    fieldset{
+@media (max-width: 550px) {
+    .fieldset-column{
         width: 100%;
+    }
+
+    .fieldset-row{
         margin: 2% 0;
     }
 
     #buttonpane{
         width: 100%;
-        padding-left: 0;
-        padding-right: 0;
+        margin-top: 2%;
     }
 }
+
+
 
