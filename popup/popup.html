@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Supreme</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="popup.css">
+    </head>
+    <body>
+        <header>
+            <h1>Supreme Bot</h1>
+            <input type="button" id="options" value="Options" title="Set up your autoifill data"></div>
+        </header>
+
+        <p>The bot adds the table-items to your basket. The created tabs keep refreshing until they found your item. Just close one if you e.g. did a writing mistake.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Categorie</th>
+                    <th>Size</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="supremeItemsTableBody">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><input type="text" id="name" placeholder="name" autocomplete="off"></td>
+                    <td><input type="text" id="color" placeholder="color" autocomplete="off"></td>
+                    <td>
+                        <select name="categorie" id="categorie">
+                            <option value="jackets">jackets</option>
+                            <option value="shirts">shirts</option>
+                            <option value="tops_sweaters">tops_sweaters</option>
+                            <option value="sweatshirts">sweatshirts</option>
+                            <option value="pants">pants</option>
+                            <option value="hats">hats</option>
+                            <option value="bags">bags</option>
+                            <option value="accessories">accessories</option>
+                            <option value="skate">skate</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="size" id="size">
+                            <option value="">-</option>
+                            <option value="Small">small</option>
+                            <option value="Medium">medium</option>
+                            <option value="Large">large</option>
+                            <option value="XLarge">xlarge</option>
+                            <option value="30">30</option>
+                            <option value="32">32</option>
+                            <option value="36">34</option>
+                            <option value="36">36</option>
+
+                        </select>
+                    </td>
+                    <td>
+                        <input type="button" id="addbutton" value="add">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <label for="checkbox-0">Wanna go to basket after all items are added?</label>
+
+        <div>
+            <div id="checkbox-0-div" class="checkbox">
+                <label class="switch">
+                    <input id="checkbox-0" type="checkbox" name="checkbox">
+                    <div class="slider"></div>
+                </label>
+            </div>
+            <input type="button" id="startbutton" value="Shop it">
+        </div>
+
+        <hr>
+
+        <p>However you can just enable some settings and if you click manually on your Supreme basket,
+            it will run them. (Auto Checkout will automatically turned off after usage)
+        </p>
+        <form>
+            <div id="checkbox-1-div" class="checkbox">
+                <label class="switch">
+                    <input id="checkbox-1" type="checkbox" name="checkbox">
+                    <div class="slider"></div>
+                </label>
+                <label for="checkbox-1">auto fill</label>
+            </div>
+
+            <div id="checkbox-2-div" class="checkbox">
+                <label class="switch">
+                    <input id="checkbox-2" type="checkbox" name="checkbox">
+                    <div class="slider"></div>
+                </label>
+                <label for="checkbox-2">checkout</label>
+            </div>
+        </form>
+        <div id="message"></div>
+
+        <script type="text/javascript" src="popup.js"></script>
+    </body>
+</html>
+

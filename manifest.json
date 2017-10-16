@@ -1,0 +1,33 @@
+{
+    "manifest_version": 2,
+
+    "name": "Supreme Bot",
+    "version": "1.0",
+    "description": "Adds items to your basket, fills in your data and checkouts",
+    
+    "options_page": "options/options.html",
+
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "storage",
+        "*://www.supremenewyork.com/*"  //cross-origin permissions for programmatic injection into code to an non-active tab and
+    ],
+
+    "browser_action": {
+        "default_icon": "pictures/icon.png",
+        "default_popup": "popup/popup.html",
+        "default_title": "Good luck bro"
+    },
+
+    "background": {
+        "scripts": ["background.js"]
+    },
+
+    "content_scripts": [{
+        "matches": ["*://www.supremenewyork.com/checkout"],
+        "js": ["content.js"]
+    }]
+
+}
+
