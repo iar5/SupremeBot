@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const boxmanualmode = document.getElementById("manualmode-box")
     const autocheckoutinfo = document.getElementById("autocheckout-info");
 
-    if(true) {
+    if(false) {
         const data = [
-            {"name": "tagless tee", "color": "white", "categorie": "accessories", "size": "Large", "id": 101},
+            {"name": "tagless tee", "color": "white", "categorie": "accessories", "size": "XLarge", "id": 101},
             {"name": "crew socks", "color": "black", "categorie": "accessories", "size": "", "id": 102},
             {"name": "classic wheels", "color": "gold", "categorie": "skate", "size": "anysize_r", "id": 103},
             {"name": "truck", "color": "silver", "categorie": "skate", "size": "129", "id": 104},
@@ -80,12 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const buttons = document.getElementsByClassName("rmbutton");
             for (let i = 0; i < buttons.length; i++) {
                 const button = buttons[i];
-                button.onclick = closure(button, button.getAttribute("id").replace("rm", ""));
+                button.onclick = closure(parseInt(button.getAttribute("id").replace("rm", "")));
             }
 
-            function closure(button, id) {
+            function closure(id) {
                 return function () {
-                    console.log(button);
                     removeSupremeItem(id, function(){
                         refreshItemTable();
                     });
@@ -137,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadBoxValues() {
-        getPopupSettings(function (settings) {
+        getSettings(POPUP_SETTINGS, function (settings) {
             for (let key in settings) {
                 const box = document.getElementById(key+"-box");
                 box.checked = settings[key];

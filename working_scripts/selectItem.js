@@ -24,9 +24,7 @@ for (let i = 0; i < articles.length && found === false; i++) {
     }
 }
 
-if(found === false) {setTimeout(function(){
-    // TODO adjust timeout time
-    // TODO relativ geringes timeout aber immer vorm hinzufügen zum korb eine pause machen damit nicht blockiert
-    chrome.runtime.sendMessage({itemStatus: {item: item, status: "notFound"}})}, 1000);
+if(found === false){
+    chrome.runtime.sendMessage({itemStatus: {item: item, status: "notFound"}});
 }
 

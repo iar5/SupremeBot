@@ -1,26 +1,16 @@
-:root{
-    --akzent: rgb(255,55,55);
-}
-
-*{
-    font-family: "Lucida Grande", "Tahoma", sans-serif;
-    font-size: 1em;
-    padding:0;
-    margin:0;
-    box-sizing: border-box;
-    font-weight: normal;
-    outline: none;
-}
 
 .bold, h3{
     font-weight: bold;
 }
 
-
+select{
+    background-color: white;
+}
 
 
 
 /* BASIC LAYOUT */
+
 body{
     max-width: 900px;
     margin: auto;
@@ -36,6 +26,7 @@ body > *{
 
 
 /* HEADER */
+
 header > * {
     display: inline-block;
 }
@@ -60,6 +51,7 @@ header > div > p{
 
 
 /* FIELDSET */
+
 form{
     width: 100%;
 }
@@ -68,11 +60,10 @@ fieldset{
     border: 0;
     vertical-align: top;
     display: inline-block;
-
+    background-color: rgb(247,247,247);
 }
 
 .fieldset-row{
-    background-color: rgb(247,247,247);
     width: 100%;
     margin-bottom: 2%;
 }
@@ -84,7 +75,7 @@ fieldset{
 
 
 fieldset h3{
-    font-family: Helvetica;
+    font-family: Helvetica, sans-serif;
     font-size: 1.5em;
     margin-bottom: 3%;
 }
@@ -102,8 +93,8 @@ input[type="text"], input[type="email"], input[type="number"], input[type="tel"]
 }
 
 input:invalid, select:invalid{
-    border: 1px solid var(--akzent);
-    box-shadow: 0 0 1px var(--akzent);
+    border: 1px solid rgba(255,55,55, 1);
+
 }
 
 #credit_card_year, #credit_card_month{
@@ -117,6 +108,7 @@ input:invalid, select:invalid{
 
 
 /* BUTTONPANE */
+
 #buttonpane{
     width: 49%;
     float: right;

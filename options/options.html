@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="options.css">
+    <link rel="stylesheet" href="../style.css">
     <script type="text/javascript" src="../myStorageHandler.js"></script>
     <script type="text/javascript" src="options.js"></script>
 </head>
@@ -13,7 +14,7 @@
     <img src="../pictures/logo.png" alt="Supreme Logo">
     <div>
         <p><span class="bold">Advanced Onlineshop Automation</span></p>
-        <p>Version 1.1.4</p>
+        <p>Version 1.1.6</p>
         <p>Autofill Data and Settings</p>
     </div>
 </header>
@@ -24,14 +25,14 @@
 
             <h3>Billing/Shipping information</h3>
 
-            <label>Full Name: <input type="text" pattern="[a-zA-Z ]+" required id="order_billing_name"></label>
+            <label>Full Name: <input type="text" pattern="[a-zA-Z]+ [a-zA-Z]+" required id="order_billing_name"></label>
             <label>E-Mail: <input type="email" required id="order_email"></label>
             <label>Tel: <input type="tel" required id="order_tel"></label>
             <label>Adress Line 1: <input type="text" pattern="[a-zA-Z0-9 ]+" required id="bo"></label>
             <label>Adress Line 2: <input type="text" pattern="[a-zA-Z0-9 ]+" id="oba3"></label>
             <label>Adress Line 3: <input type="text" pattern="[a-zA-Z0-9 ]+" id="order_billing_address_3"></label>
             <label>City: <input type="text" required pattern="[a-zA-Z ]+" id="order_billing_city"></label>
-            <label>Postcode: <input type="text" pattern="[0-9]+" required id="order_billing_zip"></label>
+            <label>Postcode: <input type="text" pattern="[a-zA-Z0-9 ]+" required id="order_billing_zip"></label>
             <label>Country:
                 <select id="order_billing_country" required>
                     <option value="">-</option>
@@ -125,8 +126,6 @@
         <fieldset class="fieldset-column">
             <h3>Bot Settings</h3>
 
-            <label class="info">Checkout Delay (ms): <input type="text" pattern="[0-9]+" required autocomplete="off" id="delay"/></label>
-
             <!-- <label>Stop auto chekout if at least one item is ..
                 <select id="stopautocheckout">
                     <option value="so_nf">sold out or table-item not found</option>
@@ -150,7 +149,31 @@
                 </select>
             </label>
         </fieldset>
+
+        <fieldset class="fieldset-column">
+            <h3>Delays to avoid getting blocked by website</h3>
+
+            <label class="info">
+                Add-to-cart delay (ms):
+                <div class="infoicon" title="Duration between single add-to-cart commands">i</div>
+                <input type="number" pattern="[0-9]+" required autocomplete="off" id="addtocartdelay"/>
+            </label>
+
+            <label class="info">
+                Checkout delay (ms):
+                <div class="infoicon" title="Duration between entering the checkout page and submitting the form">i</div>
+                <input type="number" pattern="[0-9]+" required autocomplete="off" id="checkoutdelay"/>
+            </label>
+
+            <label class="info">
+                Refresh rate (ms):
+                <div class="infoicon" title="Duration between page refresh when checking if wanted item is dropped">i</div>
+                <input type="number" pattern="[0-9]+" required autocomplete="off" id="refreshrate"/>
+            </label>
+
+        </fieldset>
     </fieldset>
+
 
     <div>
         <div id="buttonpane">

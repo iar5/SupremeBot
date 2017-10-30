@@ -1,17 +1,3 @@
-/* BASIC STYLES AND SIZING */
-
-:root{
-    --akzent: rgb(255,55,55);
-}
-
-*{
-    font-family: "Lucida Grande", "Tahoma", sans-serif;
-    padding:0;
-    margin:0;
-    box-sizing: border-box;
-    outline: none;
-    font-weight: normal;
-}
 
 p, label, input[type=button]{
     font-size: 1em;
@@ -38,24 +24,6 @@ input[type=checkbox]{
     vertical-align: middle;
 }
 
-.infoicon{
-    display: inline-block;
-    text-align: center;
-    background-color: white;
-    border: 1px solid rgb(200,200,200);
-    color: grey;
-    font-size: .9em;
-    width: 1.3em;
-    margin: auto;
-    border-radius: 50%;
-    cursor: help;
-}
-
-.infoicon.uwaga{
-    color: var(--akzent);
-    border-color: var(--akzent);
-    font-weight: bolder;
-}
 
 
 
@@ -92,6 +60,10 @@ header > img{
 #infobar{
     width: 45%;
     text-align: end;
+}
+
+#manualmode{
+    cursor: help;
 }
 
 #time{

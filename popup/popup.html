@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="popup.css">
+        <link rel="stylesheet" href="../style.css">
         <script type="text/javascript" src="../myStorageHandler.js"></script>
         <script type="text/javascript" src="popup.js"></script>
     </head>
@@ -29,7 +30,7 @@
         <table>
             <thead>
             <tr>
-                <th><input type="text" id="name" placeholder="Name" autocomplete="off"></th>
+                <th><input type="text" id="name" placeholder="Name/Keyword" autocomplete="off"></th>
                 <th><input type="text" id="color" placeholder="Color" autocomplete="off"></th>
                 <th>
                     <select name="categories" id="categories">
@@ -104,7 +105,7 @@
                         </optgroup>
                         <optgroup label="Decks (vary)">
                             <option value="7.875">875</option>
-                            <--option value="8">8<--/option>
+                            <option value="8">8</option>
                             <option value="8.25">25</option>
                             <option value="8.375">8.375</option>
                         </optgroup>
@@ -139,7 +140,7 @@
                         <div class="slider"></div>
                     </label>
                     <label for="autocheckout-box">Process checkout
-                        <div id="autocheckout-info" class="infoicon" title="Will turned off after every usage and at Chrome shutdown. Take care in combination with ManualMode!">i</div>
+                        <div class="infoicon" id="autocheckout-info"  title="Autocheckout will turned off after every usage and at every Chrome shutdown. Take care in combination with ManualMode!">i</div>
                     </label>
                 </label>
 
@@ -149,7 +150,7 @@
                         <div class="slider"></div>
                     </label>
                     <label for="gotocheckout-box">Go to / proceed on checkout-page
-                        <div class="infoicon" title="Depending on your preferences Autofill and Checkout will executed on checkout page">i</div>
+                        <div class="infoicon" title="If all items were added successfully you will redirected to the checkout-page. Depending on your preferences Autofill and Checkout will (not) executed on the checkout-page">i</div>
                     </label>
                 </label>
 

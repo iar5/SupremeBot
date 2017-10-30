@@ -7,8 +7,8 @@
 const availablesizes = document.getElementById('size');
 const cctrl = document.getElementById("cctrl");
 
-
 if(document.getElementById("cart-addf") !== null) {
+
     // one size item
     if (availablesizes.options === undefined && item.size === "") {
         commit();
@@ -29,17 +29,20 @@ if(document.getElementById("cart-addf") !== null) {
             commit();
         }
         else{
+            let found = false;
             for (let i = 0; i < availablesizes.options.length; i++) {
                 if (availablesizes.options[i].text === item.size) {
                     availablesizes.selectedIndex = i;
                     commit();
+                    found = true;
                     break;
                 }
             }
+            if(!found) console.log("Error: size not found");
         }
     }
     else {
-        console.log("Error: unexpected state");
+        console.log("Error: unexpected state for element 'size'");
     }
 }
 else if (document.getElementById("cart-remove") !== null) {

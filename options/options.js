@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function load() {
         getFields(function(fields){
-            getOptionSettings(function(settings){
+            getSettings(OPTION_SETTINGS, function(settings){
                 const items = Object.assign({}, settings, fields);
                 for (let key in items) {
                     const element = document.getElementById(key);
@@ -29,22 +29,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function save() {
-        getFields(function(fields){
+        chrome.storage.local.get(["fields", "settings"], function (items) {
+            const fields = items.fields;
+            const settings = items.settings;
             for (let key in fields) {
                 const element = document.getElementById(key);
                 if (!element.checkValidity()) return;
                 fields[key] = element.value.trim();
             }
-            getOptionSettings(function(settings) {
-                for (let key in settings) {
-                    const element = document.getElementById(key);
-                    if (!element.checkValidity()) return;
-                    settings[key] = element.value.trim();
-                }
-                chrome.storage.local.set({fields: fields, settings: settings}, function () {
-                    message("saved")
-                });
-            })
+            for (let key of OPTION_SETTINGS) {
+                const element = document.getElementById(key);
+                if (!element.checkValidity()) return;
+                settings[key] = parseInt(element.value);
+            }
+            chrome.storage.local.set({fields: fields, settings: settings}, function () {
+                message("saved")
+            });
+
         });
     }
 
