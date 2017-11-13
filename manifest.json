@@ -2,10 +2,11 @@
     "manifest_version": 2,
 
     "name": "Supreme+ Bot",
-    "version": "1.1.6",
-    "description": "Advanced http://www.supremenewyork.com/ onlineshop automation",
+    "short_name": "Supreme Bot",
+    "version": "1.1.7",
+    "description": "Advanced http://www.supremenewyork.com/ Bot",
 
-    "options_page": "options/options.html",
+    "options_page": "src/options/options.html",
 
     "permissions": [
         "tabs",
@@ -21,11 +22,16 @@
 
     "browser_action": {
         "default_icon": "pictures/icon.png",
-        "default_popup": "popup/popup.html"
+        "default_popup": "src/popup/popup.html"
     },
 
     "background": {
-        "scripts": ["initialisation.js", "myStorageHandler.js", "background.js"]
+        "scripts": [
+            "lib/sjcl.js",
+            "src/background/storageHandler.js",
+            "src/background/initialisation.js",
+            "src/background/performer.js",
+            "src/background/background.js"
+        ]
     }
-
 }

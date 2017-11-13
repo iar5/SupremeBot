@@ -10,7 +10,7 @@ const cctrl = document.getElementById("cctrl");
 if(document.getElementById("cart-addf") !== null) {
 
     // one size item
-    if (availablesizes.options === undefined && item.size === "") {
+    if (availablesizes.options === undefined && (item.size === "" || item.size.startsWith("anysize"))) {
         commit();
     }
     // multiple size item

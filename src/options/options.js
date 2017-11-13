@@ -7,46 +7,44 @@ document.addEventListener("DOMContentLoaded", function () {
     const status = document.getElementById("message");
 
     function load() {
-        getFields(function(fields){
-            getSettings(OPTION_SETTINGS, function(settings){
-                const items = Object.assign({}, settings, fields);
-                for (let key in items) {
-                    const element = document.getElementById(key);
-                    if (element) {
-                        document.getElementById(key).value = items[key];
-                    }
-                    else {
-                        message("Error occurred while loading: field " + key + " does not exist");
-                        console.log("Error occurred while loading: field " + key + " does not exist");
-                        return
-                    }
+        MSH.getSettingsAndFields(MSH.OPTION_SETTINGS, function(items){
+            const settingAndFields = Object.assign({}, items.settings, items.fields);
+            for (let key in settingAndFields) {
+                const element = document.getElementById(key);
+                if (element) {
+                    document.getElementById(key).value = settingAndFields[key];
                 }
-                message("loaded");
-
-                paypaltoggle();
-            })
+                else {
+                    message("Error occurred while loading: field " + key + " does not exist");
+                    console.log("Error occurred while loading: field " + key + " does not exist");
+                    return
+                }
+            }
+            message("loaded");
+            paypaltoggle();
         });
     }
 
     function save() {
-        chrome.storage.local.get(["fields", "settings"], function (items) {
-            const fields = items.fields;
-            const settings = items.settings;
+        MSH.getSettingsAndFields(null, function(items){
+            let settings = items.settings;
+            let fields = items.fields;
+
             for (let key in fields) {
                 const element = document.getElementById(key);
                 if (!element.checkValidity()) return;
                 fields[key] = element.value.trim();
             }
-            for (let key of OPTION_SETTINGS) {
+            for (let key of MSH.OPTION_SETTINGS) {
                 const element = document.getElementById(key);
                 if (!element.checkValidity()) return;
                 settings[key] = parseInt(element.value);
             }
-            chrome.storage.local.set({fields: fields, settings: settings}, function () {
+            MSH.setSettingsAndField(settings, fields, function(){
                 message("saved")
-            });
+            })
+        })
 
-        });
     }
 
     let timeout;

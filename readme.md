@@ -1,5 +1,10 @@
 Enter your checkout info, size and desired items into the bot then press start. It will create a tab for each item which keeps refreshing until its item was found.
 
+VER 1.1.7
+- combined one size in any_size
+- autofill data will now be saved on update
+- autofill data is now encrypted
+
 VER 1.1.6
 - on version update the storage updates itself for new variables etc
 

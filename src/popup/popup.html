@@ -6,12 +6,13 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="popup.css">
         <link rel="stylesheet" href="../style.css">
-        <script type="text/javascript" src="../myStorageHandler.js"></script>
+        <script type="text/javascript" src="/lib/sjcl.js"></script>
+        <script type="text/javascript" src="/src/background/storageHandler.js"></script>
         <script type="text/javascript" src="popup.js"></script>
     </head>
     <body>
         <header>
-            <img src="../pictures/logo.png" alt="Supreme Logo">
+            <img src="../../pictures/logo.png" alt="Supreme Logo">
             <div id="infobar">
                 <div id="time" title="Your local time"></div>
 
@@ -21,7 +22,7 @@
                         <label id="manualmode" class="checkbutton" for="manualmode-box" title="Autofill and Checkout will also work if items are manually added to the cart. This way you can also add unannounced items or if you added invalid items to the bot.">ManualMode</label>
                     </label>
 
-                    <img id="options" class="checkbutton" src="../pictures/settings.png" title="Autofill data and advanced settings">
+                    <img id="options" class="checkbutton" src="../../pictures/settings.png" title="Autofill data and advanced settings">
                 </div>
             </div>
         </header>
@@ -50,12 +51,8 @@
                 </th>
                 <th>
                     <select name="size" id="size">
-
-                        <optgroup label="Accessories">
-                            <option value="">-</option>
-                        </optgroup>
-                        <optgroup label="For Hypebeast or resell">
-                            <option value="anysize_r">Any size (random)</option>
+                        <optgroup label="Even for one size items">
+                            <option value="anysize_r">Any size</option>
                             <option value="anysize_l">Any size from smallest to tallest </option>
                             <option value="anysize_s">Any size from tallest to smallest </option>
                         </optgroup>

@@ -2,7 +2,6 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-
     /* << VARIABLES >> */
 
     const table = document.getElementById("supremeItemsTableBody");
@@ -11,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const boxautocheckout = document.getElementById("autocheckout-box");
     const boxautocheckoutdiv = document.getElementById("autocheckout-box-div");
 
-    const boxmanualmode = document.getElementById("manualmode-box")
+    const boxmanualmode = document.getElementById("manualmode-box");
     const autocheckoutinfo = document.getElementById("autocheckout-info");
 
     if(false) {
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         else {
             boxautocheckoutdiv.style.opacity = ".3";
             boxautocheckout.checked = false;
-            setSetting("autocheckout", 0)
+            MSH.setSetting("autocheckout", 0)
         }
 
         if (boxautocheckout.checked && boxmanualmode.checked){
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function closure(id) {
                 return function () {
-                    removeSupremeItem(id, function(){
+                    MSH.removeSupremeItem(id, function(){
                         refreshItemTable();
                     });
                 }
@@ -94,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.getElementById("options").onclick = function () {
-        chrome.tabs.create({'url': "/options/options.html"})
+        chrome.tabs.create({'url': "/src/options/options.html"})
     };
 
 
@@ -136,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadBoxValues() {
-        getSettings(POPUP_SETTINGS, function (settings) {
+        MSH.getSettings(MSH.POPUP_SETTINGS, function (settings) {
             for (let key in settings) {
                 const box = document.getElementById(key+"-box");
                 box.checked = settings[key];
@@ -148,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateBoxValue(box, key){
         return function () {
-            setSetting(key, +box.checked, function(){
+            MSH.setSetting(key, +box.checked, function(){
                 updateBoxValueAndCss();
             });
         };

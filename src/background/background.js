@@ -25,7 +25,6 @@ chrome.storage.onChanged.addListener(function (changes, areaName){
 });
 */
 
-const PERFORMER = new Performer();
 
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
@@ -47,7 +46,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                             active: false
                         }, function (tab) {
                             chrome.tabs.executeScript(tab.id, {code: 'var item = ' + JSON.stringify(item)}, function () {
-                                chrome.tabs.executeScript(tab.id, {file: "working_scripts/selectItem.js"}, function (tab) {
+                                chrome.tabs.executeScript(tab.id, {file: "/src/content/selectItem.js"}, function (tab) {
                                     if (!tab) {
                                         console.log("Error: caused by closing last tab");
                                     }
@@ -77,16 +76,16 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         // STEP 1.1:
         //  RELOAD TAB AND INJECT SCRIPT AGAIN
         if (status === "notFound") {
-            getSetting("refreshrate", function (refreshrate) {
+            MSH.getSetting("refreshrate", function (refreshrate) {
                 setTimeout(function () {
-                    if(sender.tab) updateTab(sender.tab.id, {url: sender.url}, "working_scripts/selectItem.js", item)}, refreshrate);
+                    if(sender.tab) updateTab(sender.tab.id, {url: sender.url}, "/src/content/selectItem.js", item)}, refreshrate);
             });
         }
 
         // STEP 2:
         //  SELECT SIZE AND ADD IT TO BASKET
         else if (status === "itemFound") {
-            getSetting("addtocartdelay", function (addtocartdelay) {
+            MSH.getSetting("addtocartdelay", function (addtocartdelay) {
                 item.tabId = sender.tab.id;
                 item.url = url;
                 PERFORMER.run(item, addtocartdelay);
@@ -104,7 +103,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         // STEP 3:
         //  STOP/CONTINUE IF ALL ITEMS ARE ADDED
         else if (status === "inCart") {
-            removeSupremeItem(item.id, function (removed) {
+            MSH.removeSupremeItem(item.id, function (removed) {
                 //chrome.tabs.remove(sender.tab.id)
                 if (removed.length === 0) {
                     chrome.storage.local.get("settings", function (items) {
@@ -123,7 +122,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                                     updateTab(sender.tab.id, {
                                         active: true,
                                         url: "https://www.supremenewyork.com/checkout"
-                                    }, "/working_scripts/autofill_checkout.js");
+                                    }, "/src/content/autofill_checkout.js");
                                 }
                             }, 500);
                         }
@@ -139,6 +138,14 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         chrome.browserAction.setBadgeText({text: message.badge});
         chrome.browserAction.setBadgeBackgroundColor({color: [255, 55, 55, 255]});
     }
+
+    else if (message.MSH !== undefined) {
+        if(message.MSH === "getSettingsAndFields")
+        MSH.getSettingsAndFields(null, function(items){
+            sendResponse(items);
+        });
+        return true;
+    }
 });
 
 
@@ -149,26 +156,25 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status === "complete") {
 
         if (tab.url.match(/^(http|https):\/\/www.supremenewyork.com\/shop$/)) {
-            getSetting("nowelcomepage", function (nowelcomepage) {
-                console.log(nowelcomepage);
+            MSH.getSetting("nowelcomepage", function (nowelcomepage) {
                 if (nowelcomepage === 1)
                     chrome.tabs.update(tabId, {url: "https://www.supremenewyork.com/shop/all"})
             })
         }
         else if (tab.url.match(/^(http|https):\/\/www.supremenewyork.com\/shop\/*/)) {
-            getSetting("showsoldout", function (showsoldout) {
+            MSH.getSetting("showsoldout", function (showsoldout) {
                 if (showsoldout === 1)
                     chrome.tabs.insertCSS(tabId, {
-                        file: "working_css/showsoldouttag.css",
+                        file: "/src/content/showsoldouttag.css",
                         allFrames: true
                     }, function () {
                     });
             })
         }
         else if (tab.url.match(/^(http|https):\/\/www.supremenewyork.com\/checkout$/)) {
-            getSetting("manualmode", function (manualmode) {
+            MSH.getSetting("manualmode", function (manualmode) {
                 if (manualmode === 1) {
-                    chrome.tabs.executeScript(tabId, {file: "working_scripts/autofill_checkout.js"});
+                    chrome.tabs.executeScript(tabId, {file: "/src/content/autofill_checkout.js"});
                 }
             })
         }
@@ -203,36 +209,6 @@ function updateTab(tab_Id, updateProperties, script, object) {
 
 
 
-/**
- * @description: Allows to submit delayed "add to basket" request to avoid to be blocked/ignored by website from too many requests
- * @usage: you only need to call the run() function
- */
-function Performer() {
-    let items = [];
-    let inProcess = false;
-    let addToCartDelay = 0;
-
-    let process = function () {
-        inProcess = true;
-        setTimeout(function () {
-            let item = items.shift();
-            updateTab(item.tabId, {url: item.url}, "working_scripts/selectSize.js", item);
-            if (items.length >= 1) process();
-            else inProcess = false;
-        }, addToCartDelay);
-    };
-
-    this.run = function (item, delay) {
-        items.push(item);
-        if (!inProcess) {
-            addToCartDelay = delay;
-            process();
-        }
-    }
-}
-
-
-
 /*
  Bot beenden, wenn
  - alle geöffneten Tabs geschlossen sind
@@ -247,6 +223,10 @@ TODO testen wie schnell tab refresh rate damit item noch hinzugefügt wird / evt
 
 TODO bot stop wenn Exceptions geworfen werden! Z.B wenn exception geworfen wird dass tab mit id zum refreshen nicht merh da ist
 TODO stoppen von refreshen wenn ein item gefunden wurde
+
+TODO test neue updated function
+
+TODO PAYPAL KLAPPT NICHT !!!!!!!!!!!!!!!!!!!!!!!!!!$$$$$
  */
 
 
