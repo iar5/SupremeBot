@@ -16,12 +16,17 @@ input[type=checkbox]{
     display: none;
 }
 
+input[type=button]{
+    border-radius: 0;
+}
+
 .button{
     border: 1px solid var(--akzent);
     color: var(--akzent);
     background-color: white;
     display: inline-block;
     vertical-align: middle;
+    border-radius: 0;
 }
 
 
@@ -62,10 +67,6 @@ header > img{
     text-align: end;
 }
 
-#manualmode{
-    cursor: help;
-}
-
 #time{
     height: 18px;
     line-height: 18px;
@@ -79,6 +80,14 @@ header > img{
 #clickbar{
     width: 100%;
     text-align: end;
+}
+
+#manualmode{
+    cursor: help;
+}
+
+#options{
+    position: relative;
 }
 
 

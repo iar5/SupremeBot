@@ -26,7 +26,6 @@ chrome.storage.onChanged.addListener(function (changes, areaName){
 */
 
 
-
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.bot !== undefined) {
 
@@ -60,6 +59,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                         })
                     }
                 }
+
                 loop();
             })
         }
@@ -78,7 +78,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         if (status === "notFound") {
             MSH.getSetting("refreshrate", function (refreshrate) {
                 setTimeout(function () {
-                    if(sender.tab) updateTab(sender.tab.id, {url: sender.url}, "/src/content/selectItem.js", item)}, refreshrate);
+                    if (sender.tab) updateTab(sender.tab.id, {url: sender.url}, "/src/content/selectItem.js", item)
+                }, refreshrate);
             });
         }
 
@@ -133,17 +134,15 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         }
     }
 
-    // set icon badge
     else if (message.badge !== undefined) {
-        chrome.browserAction.setBadgeText({text: message.badge});
-        chrome.browserAction.setBadgeBackgroundColor({color: [255, 55, 55, 255]});
+        setBadge(message.badge);
     }
 
     else if (message.MSH !== undefined) {
-        if(message.MSH === "getSettingsAndFields")
-        MSH.getSettingsAndFields(null, function(items){
-            sendResponse(items);
-        });
+        if (message.MSH === "getSettingsAndFields")
+            MSH.getSettingsAndFields(null, function (items) {
+                sendResponse(items);
+            });
         return true;
     }
 });
@@ -181,6 +180,28 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     }
 });
 
+chrome.storage.onChanged.addListener(function (changes, areaName) {
+
+    if (changes.fields) {
+        MSH.isReqShipFieldsComplete(function (complete) {
+            let text = "";
+            if(!complete) text = "A";
+            setBadge("personalDataEmpty", text);
+        })
+    }
+
+    // to avoid an exception check first if changes are made in settings
+    else if ((changes.settings !== undefined) && changes.settings.newValue.autocheckout !== undefined && changes.settings.newValue.manualmode !== undefined) {
+        MSH.getSettings(null, function (settings) {
+
+            const bool = settings.autocheckout && settings.manualmode;
+            let text = "";
+            if(bool) text = "M";
+            setBadge("manualAutoCheckout", text);
+        })
+    }
+});
+
 
 /**
  * @param {int} tab_Id - Id from the tab which has to be updated
@@ -207,6 +228,23 @@ function updateTab(tab_Id, updateProperties, script, object) {
     })
 }
 
+// from less important to most important
+let badgeHierarchy = {
+    personalDataEmpty: "",
+    manualAutoCheckout: "",
+};
+
+function setBadge(reason, text) {
+    badgeHierarchy[reason] = text;
+    chrome.browserAction.setBadgeBackgroundColor({color: [255, 55, 55, 255]});
+    chrome.browserAction.setBadgeText({text: ""});
+
+    for(const badge in badgeHierarchy){
+        if(badgeHierarchy[badge] !== "") {
+            chrome.browserAction.setBadgeText({text: badgeHierarchy[badge]});
+        }
+    }
+}
 
 
 /*
@@ -218,16 +256,18 @@ function updateTab(tab_Id, updateProperties, script, object) {
 string/int speicherung angleichen
 falls url matcher nicht mehr klappt: habe auf typ abgleich (int) verändert da string/int vermiscung gedacht behoben zu haben durch value tag im option.html
 
-TODO badge wenn autofill leer
+
 TODO testen wie schnell tab refresh rate damit item noch hinzugefügt wird / evtl mehrer
 
 TODO bot stop wenn Exceptions geworfen werden! Z.B wenn exception geworfen wird dass tab mit id zum refreshen nicht merh da ist
 TODO stoppen von refreshen wenn ein item gefunden wurde
 
-TODO test neue updated function
+TODO PAYPAL Toggle css
 
-TODO PAYPAL KLAPPT NICHT !!!!!!!!!!!!!!!!!!!!!!!!!!$$$$$
+TODO cc required aber nur wenn nicht paypal
+
  */
+
 
 
 //http://stackoverflow.com/questions/27823740/chrome-extension-message-passing-between-content-and-background-not-working

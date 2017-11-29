@@ -48,12 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (boxautocheckout.checked && boxmanualmode.checked){
             autocheckoutinfo.classList.add("uwaga");
-            chrome.runtime.sendMessage({badge: "!"})
         }
         else{
             autocheckoutinfo.classList.remove("uwaga");
-            chrome.runtime.sendMessage({badge: ""})
         }
+
+        //TODO uwaga für settings
     }
 
 
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function loadBoxValues() {
-        MSH.getSettings(MSH.POPUP_SETTINGS, function (settings) {
+        MSH.getSettings(MSH.POPUP_SETTING_KEYS, function (settings) {
             for (let key in settings) {
                 const box = document.getElementById(key+"-box");
                 box.checked = settings[key];
@@ -160,4 +160,5 @@ document.addEventListener("DOMContentLoaded", function () {
     clock();
     setInterval(clock, 250);
     loadBoxValues();
+
 });

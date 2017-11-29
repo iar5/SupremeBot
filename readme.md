@@ -1,5 +1,11 @@
 Enter your checkout info, size and desired items into the bot then press start. It will create a tab for each item which keeps refreshing until its item was found.
 
+
+VER 1.1.8 + 1.1.9 + 1.1.10
+- added icon badge that appears if you enable manualmode + autocheckoutt or if something is missing or wrong in your autofill form
+- you can now save your autofill data even if it does not match the pattern
+- your changed settings autofill + will now saved on version update
+
 VER 1.1.7
 - combined one size in any_size
 - autofill data will now be saved on update

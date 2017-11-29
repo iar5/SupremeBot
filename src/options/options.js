@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const status = document.getElementById("message");
 
     function load() {
-        MSH.getSettingsAndFields(MSH.OPTION_SETTINGS, function(items){
+        MSH.getSettingsAndFields(MSH.OPTION_SETTING_KEYS, function(items){
             const settingAndFields = Object.assign({}, items.settings, items.fields);
             for (let key in settingAndFields) {
                 const element = document.getElementById(key);
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             message("loaded");
             paypaltoggle();
+            document.getElementsByTagName("body")[0].style.visibility = "visible";
         });
     }
 
@@ -32,12 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             for (let key in fields) {
                 const element = document.getElementById(key);
-                if (!element.checkValidity()) return;
+                //if (!element.checkValidity()) return;
                 fields[key] = element.value.trim();
             }
-            for (let key of MSH.OPTION_SETTINGS) {
+            for (let key of MSH.OPTION_SETTING_KEYS) {
                 const element = document.getElementById(key);
-                if (!element.checkValidity()) return;
+                //if (!element.checkValidity()) return;
+                if (element.value === "")
+                    element.value = MSH.SETTINGS_DEFAULT[key];
                 settings[key] = parseInt(element.value);
             }
             MSH.setSettingsAndField(settings, fields, function(){
@@ -87,6 +90,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('save').addEventListener('click', save);
     document.getElementById('cancel').addEventListener('click', load);
     cardtype.onchange = paypaltoggle;
+
+    for(let field of MSH.REQ_SHIPPING_FIELDS_KEYS){
+        document.getElementById(field).required = true;
+    }
 });
 
 

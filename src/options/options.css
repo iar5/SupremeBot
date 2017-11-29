@@ -15,6 +15,7 @@ body{
     max-width: 900px;
     margin: auto;
     padding: 2%;
+    visibility: hidden;
 }
 
 body > *{
@@ -112,6 +113,7 @@ input:invalid, select:invalid{
 #buttonpane{
     width: 49%;
     float: right;
+    margin-bottom: 2%;
 }
 
 #buttonpane input[type=button]{
@@ -121,6 +123,7 @@ input:invalid, select:invalid{
     cursor: pointer;
     display: inline-block;
     font-weight: bold;
+    border-radius: 0;
 }
 
 #buttonpane #cancel{

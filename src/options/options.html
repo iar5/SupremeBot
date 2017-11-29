@@ -15,7 +15,7 @@
     <img src="../../pictures/logo.png" alt="Supreme Logo">
     <div>
         <p><span class="bold">Advanced Onlineshop Automation</span></p>
-        <p>Version 1.1.7</p>
+        <p>Version 1.1.10</p>
         <p>Autofill Data and Settings</p>
     </div>
 </header>
@@ -26,16 +26,16 @@
 
             <h3>Billing/Shipping information</h3>
 
-            <label>Full Name: <input type="text" pattern="[a-zA-Z]+ [a-zA-Z]+" required id="order_billing_name"></label>
-            <label>E-Mail: <input type="email" required id="order_email"></label>
-            <label>Tel: <input type="tel" required id="order_tel"></label>
-            <label>Adress Line 1: <input type="text" pattern="[a-zA-Z0-9 ]+" required id="bo"></label>
+            <label>Full Name: <input type="text" pattern="[a-zA-Z]+ [a-zA-Z]+"  id="order_billing_name"></label>
+            <label>E-Mail: <input type="email"  id="order_email"></label>
+            <label>Tel: <input type="tel"  id="order_tel"></label>
+            <label>Adress Line 1: <input type="text" pattern="[a-zA-Z0-9 ]+"  id="bo"></label>
             <label>Adress Line 2: <input type="text" pattern="[a-zA-Z0-9 ]+" id="oba3"></label>
             <label>Adress Line 3: <input type="text" pattern="[a-zA-Z0-9 ]+" id="order_billing_address_3"></label>
-            <label>City: <input type="text" required pattern="[a-zA-Z ]+" id="order_billing_city"></label>
-            <label>Postcode: <input type="text" pattern="[a-zA-Z0-9 ]+" required id="order_billing_zip"></label>
+            <label>City: <input type="text"  pattern="[a-zA-Z ]+" id="order_billing_city"></label>
+            <label>Postcode: <input type="text" pattern="[a-zA-Z0-9 ]+"  id="order_billing_zip"></label>
             <label>Country:
-                <select id="order_billing_country" required>
+                <select id="order_billing_country" >
                     <option value="">-</option>
                     <option value="GB">UK</option>
                     <option value="NB">UK (N. IRELAND)</option>
@@ -157,19 +157,19 @@
             <label class="info">
                 Add-to-cart delay (ms):
                 <div class="infoicon" title="Duration between single add-to-cart commands">i</div>
-                <input type="number" pattern="[0-9]+" required autocomplete="off" id="addtocartdelay"/>
+                <input type="number" pattern="[0-9]+" autocomplete="off" id="addtocartdelay"/>
             </label>
 
             <label class="info">
                 Checkout delay (ms):
                 <div class="infoicon" title="Duration between entering the checkout page and submitting the form">i</div>
-                <input type="number" pattern="[0-9]+" required autocomplete="off" id="checkoutdelay"/>
+                <input type="number" pattern="[0-9]+" autocomplete="off" id="checkoutdelay"/>
             </label>
 
             <label class="info">
                 Refresh rate (ms):
                 <div class="infoicon" title="Duration between page refresh when checking if wanted item is dropped">i</div>
-                <input type="number" pattern="[0-9]+" required autocomplete="off" id="refreshrate"/>
+                <input type="number" pattern="[0-9]+" autocomplete="off" id="refreshrate"/>
             </label>
 
         </fieldset>
