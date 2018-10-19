@@ -32,10 +32,20 @@ header > * {
     display: inline-block;
 }
 
-header > img{
+header > #logo{
     height: 3.7em;
 }
 
+header > #donateButton{
+    vertical-align: top;
+    margin-top: 10px;
+    float: right;
+    height: 32px;
+}
+
+header > #donateButton > img{
+    height: 100%;
+}
 
 header > div{
     padding-left: 1%;

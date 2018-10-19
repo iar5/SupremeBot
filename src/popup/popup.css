@@ -226,7 +226,7 @@ table input[type=text], table select{
     min-width: 35%;
 }
 
-.checkbox.inline{
+.checkbox:first-of-type{
     margin-bottom: 1%;
 }
 
@@ -279,7 +279,7 @@ input[type=checkbox]:checked + .slider:before {
 #buttonpane{
     width: 23%;
     display: flex;
-    //justify-content: space-between;
+    /*justify-content: space-between;*/
     flex-flow: column;
     justify-content: flex-end;
 }

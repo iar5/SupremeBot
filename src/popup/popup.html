@@ -19,7 +19,7 @@
                 <div id="clickbar">
                     <label>
                         <input id="manualmode-box" class="checkbutton-box" type="checkbox">
-                        <label id="manualmode" class="checkbutton" for="manualmode-box" title="Autofill and Checkout will also work if items are manually added to the cart. This way you can also add unannounced items or if you added invalid items to the bot.">ManualMode</label>
+                        <label id="manualmode" class="checkbutton" for="manualmode-box" title="If selected, Autofill and Checkout will executed when the user clicked “checkout” or “got to cart” by hisself.">ManualMode</label>
                     </label>
 
                     <img id="options" class="checkbutton" src="../../pictures/settings.png" title="Autofill data and advanced settings">
@@ -122,6 +122,16 @@
         <div id="lastrow">
             <div id="settingpane">
 
+                <label class="checkbox">
+                    <label class="switch">
+                        <input type="checkbox" id="gotocheckout-box">
+                        <div class="slider"></div>
+                    </label>
+                    <label for="gotocheckout-box">Go to / proceed on checkout-page
+                        <div class="infoicon" title="If selected and all items were added successfully to your cart, you will redirected to the checkout-page. Depending on your preferences, Autofill and Checkout will (not) executed on the checkout-page">i</div>
+                    </label>
+                </label>
+
                 <label class="checkbox inline" id="boxautofill-div">
                     <label class="switch">
                         <input type="checkbox" id="autofill-box">
@@ -137,17 +147,7 @@
                         <div class="slider"></div>
                     </label>
                     <label for="autocheckout-box">Process checkout
-                        <div class="infoicon" id="autocheckout-info"  title="Autocheckout will turned off after every usage and at every Chrome shutdown. Take care in combination with ManualMode!">i</div>
-                    </label>
-                </label>
-
-                <label class="checkbox">
-                    <label class="switch">
-                        <input type="checkbox" id="gotocheckout-box">
-                        <div class="slider"></div>
-                    </label>
-                    <label for="gotocheckout-box">Go to / proceed on checkout-page
-                        <div class="infoicon" title="If all items were added successfully you will redirected to the checkout-page. Depending on your preferences Autofill and Checkout will (not) executed on the checkout-page">i</div>
+                        <div class="infoicon" id="autocheckout-info"  title="Autocheckout will turned off after every usage and at every Chrome shutdown. Take care if it ManualMode is activated as well!">i</div>
                     </label>
                 </label>
 

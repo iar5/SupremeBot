@@ -12,12 +12,17 @@
 </head>
 <body>
 <header>
-    <img src="../../pictures/logo.png" alt="Supreme Logo">
+    <img id="logo" src="../../pictures/logo.png" alt="Supreme Logo">
     <div>
         <p><span class="bold">Advanced Onlineshop Automation</span></p>
-        <p>Version 1.1.10</p>
+        <p>Version 1.1.11</p>
         <p>Autofill Data and Settings</p>
     </div>
+
+    <a id="donateButton" target="_blank" href="https://www.paypal.me/tomwendland00">
+        <img src="../../pictures/donate.jpg">
+    </a>
+
 </header>
 
 <form>
@@ -156,19 +161,19 @@
 
             <label class="info">
                 Add-to-cart delay (ms):
-                <div class="infoicon" title="Duration between single add-to-cart commands">i</div>
+                <div class="infoicon" title="Time between single add-to-cart commands">i</div>
                 <input type="number" pattern="[0-9]+" autocomplete="off" id="addtocartdelay"/>
             </label>
 
             <label class="info">
                 Checkout delay (ms):
-                <div class="infoicon" title="Duration between entering the checkout page and submitting the form">i</div>
+                <div class="infoicon" title="Time between entering the checkout page and submitting the contact form">i</div>
                 <input type="number" pattern="[0-9]+" autocomplete="off" id="checkoutdelay"/>
             </label>
 
             <label class="info">
                 Refresh rate (ms):
-                <div class="infoicon" title="Duration between page refresh when checking if wanted item is dropped">i</div>
+                <div class="infoicon" title="Time between a page refresh">i</div>
                 <input type="number" pattern="[0-9]+" autocomplete="off" id="refreshrate"/>
             </label>
 
