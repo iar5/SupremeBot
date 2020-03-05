@@ -58,8 +58,3 @@ ADVICE:
 - the clock at pop up top displays the local time of your computer
 - any Autofill data is only saved locally on your computer
 - I do not take over any liability for inadvertently purchases
-
-CONTACT:
-If you need help or if for any reason the bot doesn't work email me at maierxc@gmail.com and i will resolve the issue as fast as i can. 
-
-ADDITIONAL FEATURES COMING SOON
