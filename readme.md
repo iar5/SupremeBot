@@ -1,3 +1,5 @@
+Download at https://chrome.google.com/webstore/detail/supreme%2B-bot/emnbpmmmbmgmahiklmiijklllackcpmi
+
 Enter your checkout info, size and desired items into the bot then press start. It will create a tab for each item which keeps refreshing until its item was found.
 
 
